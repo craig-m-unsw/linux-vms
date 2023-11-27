@@ -1,0 +1,10 @@
+**.box
+**.iso
+**.rpm
+**.deb
+**.tar.gz
+**.log
+.vagrant/
+./bento
+vm_server/src/*
+!vm_server/.gitkeep

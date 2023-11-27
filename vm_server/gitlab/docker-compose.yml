@@ -1,0 +1,20 @@
+version: "3"
+services:
+  gitlab:
+    image: gitlab/gitlab-ce
+    hostname: gitlab.internal
+    environment:
+        GITLAB_OMNIBUS_CONFIG: |
+          external_url 'http://gitlab.internal'
+          nginx['redirect_http_to_https'] = false
+          gitlab_rails['smtp_enable'] = false
+          letsencrypt['enable'] = false
+    ports:
+      - '9922:22'
+      - '9980:80'
+      - '9943:443'
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
+    restart: unless-stopped
