@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     config.vm.box_check_update = false
 
     servers.each do |machine|
-        next if machine.has_key? 'disable'
+        next if machine.has_key?('disable') && machine['disable'] == true
         config.vm.define machine["name"] do |node|
 
             node.vm.box = machine["box"]
