@@ -20,7 +20,7 @@ Build VM box images. Some of the iso url might need updating, the Debian url cha
 Download installers:
 
 ```shell
-python3 vm_server/get_files.py --download_folder=server/src/
+python3 vm_server/get_files.py --download_folder=vm_server/src/
 ```
 
 Start up virtual machines:

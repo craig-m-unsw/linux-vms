@@ -5,6 +5,6 @@
 **.tar.gz
 **.log
 .vagrant/
-./bento
+bento/
 vm_server/src/*
 !vm_server/.gitkeep
