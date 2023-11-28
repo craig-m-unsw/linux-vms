@@ -128,7 +128,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Set up GitLab connection
-    print("start gitlab config")
+    print("[*] start gitlab config")
     gl = setup_gitlab_connection(url=args.url, private_token=args.token)
 
     # Create GitLab group
@@ -152,4 +152,4 @@ if __name__ == "__main__":
     # List all groups
     list_all_groups(gl)
 
-    print("gitlab config script ran")
+    print("[*] gitlab config script ran")

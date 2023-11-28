@@ -112,7 +112,6 @@ if [ ! -f /opt/boxlab/config/initial_root_password ]; then
     cust_log "get GL root password"
     sudo docker exec -it gitlab-gitlab-1 grep "Password:" /etc/gitlab/initial_root_password | tr -d 'Password: ' > /opt/boxlab/config/initial_root_password
     chmod 600 -v /opt/boxlab/config/initial_root_password
-
     # Stop new user accounts in Gitlab:
     sudo docker exec -it gitlab-gitlab-1 gitlab-rails runner 'ApplicationSetting.last.update(signup_enabled: false)'
 fi
@@ -160,34 +159,12 @@ if [ ! -d /home/vagrant/controlrepo ]; then
     ssh-add ~/.ssh/id_rsa
     cd ~
     git clone ssh://git@gitlab.internal:9922/coders/controlrepo.git
-    cd controlrepo || exit 1
-    # set branches
+    cd controlrepo || { echo 'error cloning control repo'; exit 1; }
     git switch --orphan production
     git commit --allow-empty -m "Initial commit by automation"
     git push -u origin production
     git branch -a
-    cust_log "import base clone control repo"
-    wget https://github.com/puppetlabs/control-repo/archive/refs/heads/production.zip;
-    unzip production.zip;
-    mv -v control-repo-production/* .
-    mv -v control-repo-production/.gitignore .
-    rmdir control-repo-production
-    rm -v -f production.zip;
-cat << EOF > .gitignore
-# git ignore files
-!localignore/.gitkeep
-localignore/*
-modules/
-.bundle/
-vendor/
-venv/
-key_dev_private.pkcs7.pem
-**.log
-**.DS_Store
-EOF
-    mkdir -pv localignore/
-    touch localignore/.gitkeep
-    cust_log "push control repo"
+    rsync -av /vagrant/controlrepo/* .
     git add -- *
     git add .gitignore
     git commit -m "control repo import"
@@ -229,20 +206,17 @@ fi
 
 if [ ! -f /opt/boxlab/.pesetup.txt ]; then
     cust_log "run puppet installer"
-
     # copy ssh deploy key
     sudo mkdir -pv /etc/puppetlabs/puppetserver/ssh/
     sudo cp -v /opt/boxlab/config/pekey001.ed25519 /etc/puppetlabs/puppetserver/ssh/
-
-    stat /opt/boxlab/config/pe.conf || { echo 'ERROR missing cust pe config'; exit 1; }
-    # Install!
+    # Install PE
+    if [ ! -f /opt/boxlab/config/pe.conf ]; then { cust_log "ERROR missing custom pe.conf" && exit 1; } fi
     sudo DISABLE_ANALYTICS=1 /opt/boxlab/puppet-enterprise-2023.5.0-el-9-x86_64/puppet-enterprise-installer -c /opt/boxlab/config/pe.conf | tee -a /opt/boxlab/pe-setup.log || { cust_log 'ERROR PE installer failed'; exit 1; }
     cust_log "puppet installed"
-
+    # run agent
     for i in {1..2}; do sudo /usr/local/bin/puppet agent -t; done
     cust_log "puppet agent ran twice"
-
-    sudo /usr/local/bin/puppet infrastructure configure
+    sudo /usr/local/bin/puppet infrastructure configure || { echo 'error with puppet infra'; exit 1; }
 
     touch /opt/boxlab/.pesetup.txt
 else
@@ -252,13 +226,18 @@ fi
 # PE status
 sudo /usr/local/bin/puppet infrastructure status
 
+# puppet cli admin access
 if [ ! -f /home/vagrant/.puppetlabs/token ]; then
     cust_log "setup admin token"
     pupadminpw=$(cat /opt/boxlab/config/pe.conf | grep console_admin_password | awk '{print $2}' | tr -d '"')
     echo "$pupadminpw" | puppet access login --username admin --lifetime 1y; 
 fi
 
+# install support_tasks module
 if [ ! -d .puppetlabs/etc/code/modules/support_tasks ]; then /usr/local/bin/puppet module install puppetlabs-support_tasks; fi
+
+# sync control repo code
+/opt/puppetlabs/bin/puppet-code deploy --all --wait
 
 #---------------------------------------------------------
 # done

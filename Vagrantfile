@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
 
             node.vm.box = machine["box"]
             node.vm.hostname = machine["hostname"]
+            config.vbguest.auto_update = false
 
             if machine.has_key? 'ip'
                 node.vm.network "private_network", ip: machine["ip"]
@@ -32,10 +33,10 @@ Vagrant.configure("2") do |config|
                 vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
             end
 
-            config.vbguest.auto_update = false
-
             if machine.has_key? 'fshare'
                 node.vm.synced_folder machine["fshare"], '/vagrant', type: "rsync", disabled: false
+            else
+                node.vm.synced_folder './no', '/vagrant', type: "rsync", disabled: true
             end
 
         end

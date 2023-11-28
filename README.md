@@ -1,4 +1,4 @@
-# Learn linux admin
+# Linux box admin
 
 Use the [chef](https://www.chef.io/products/chef-infra) bento [project](https://github.com/chef/bento) to build the [Vagrant](https://www.vagrantup.com/) [boxes](https://app.vagrantup.com/bento).
 
@@ -42,7 +42,7 @@ sudo hostnamectl set-hostname puppet.mylocal
 echo '127.0.1.1     puppet.mylocal puppet.local' | sudo tee -a /etc/hosts
 ```
 
-Setup VM:
+Setup Gitlab + PE:
 
 ```shell
 /vagrant/setup-server.sh
@@ -50,37 +50,3 @@ Setup VM:
 
 Login to [Puppet](https://localhost:4343/auth/login?redirect=/) and [Gitlab](http://localhost:9980/users/sign_in) web console, the passwords can be found in `/opt/boxlab/config/`
 
-put machines under puppet control
-
-```shell
-thehost="oracle8"
-vagrant ssh $thehost -c "echo '192.168.60.13     puppet.mylocal puppet.local' | sudo tee -a /etc/hosts"
-vagrant ssh $thehost -c "curl --insecure https://puppet.mylocal:8140/packages/current/install.bash | sudo bash"
-```
-
-## clean up
-
-clean up host system:
-
-```shell
-vagrant down
-vagrant destroy -f
-vagrant box list | grep builds | awk '{print $1}' | xargs -n1 -I {} vagrant box remove {}
-```
-
-Puppet:
-
-```shell
-sudo su
-rm -rf /etc/puppetlabs/
-rm -rf /opt/puppetlabs/
-rm -rf /var/log/puppetlabs
-rm -rf /var/run/puppetlabs
-```
-
-git:
-
-```shell
-sudo su
-rm -rf /srv/gitlab/*
-```
