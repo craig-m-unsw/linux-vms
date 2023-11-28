@@ -35,13 +35,6 @@ the port forwarding in Vagrant can be temperamental so I use a tunnel.
 
 ## use
 
-setup FQDN for Puppet:
-
-```shell
-sudo hostnamectl set-hostname puppet.mylocal
-echo '127.0.1.1     puppet.mylocal puppet.local' | sudo tee -a /etc/hosts
-```
-
 Setup Gitlab + PE:
 
 ```shell
@@ -49,4 +42,3 @@ Setup Gitlab + PE:
 ```
 
 Login to [Puppet](https://localhost:4343/auth/login?redirect=/) and [Gitlab](http://localhost:9980/users/sign_in) web console, the passwords can be found in `/opt/boxlab/config/`
-
