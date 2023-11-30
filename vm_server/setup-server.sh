@@ -153,6 +153,7 @@ EOF
     echo "127.0.0.1    gitlab.internal" | sudo tee -a /etc/hosts
 fi
 
+# add puppet control repo code to git server
 if [ ! -d /home/vagrant/controlrepo ]; then
     cust_log "clone control repo"
     eval $(ssh-add)
@@ -236,8 +237,11 @@ fi
 # install support_tasks module
 if [ ! -d .puppetlabs/etc/code/modules/support_tasks ]; then /usr/local/bin/puppet module install puppetlabs-support_tasks; fi
 
-# sync control repo code
+# sync control repo code from git server
 /opt/puppetlabs/bin/puppet-code deploy --all --wait
+
+# apply puppet code to prod nodes
+/usr/local/bin/puppet job run --query 'nodes { catalog_environment = "production" }'
 
 #---------------------------------------------------------
 # done

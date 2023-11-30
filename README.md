@@ -1,6 +1,6 @@
 # Linux box admin
 
-Use the [chef](https://www.chef.io/products/chef-infra) bento [project](https://github.com/chef/bento) to build the [Vagrant](https://www.vagrantup.com/) [boxes](https://app.vagrantup.com/bento).
+Use the [chef](https://www.chef.io/products/chef-infra) bento [project](https://github.com/chef/bento) to build the [Vagrant](https://www.vagrantup.com/) [boxes](https://app.vagrantup.com/bento), then run Puppet Enterprise to configure them.
 
 Tested November 2023 on:
 
@@ -28,6 +28,7 @@ Start up virtual machines:
 ```shell
 vagrant validate
 vagrant up
+vagrant ssh-config puppet >> ~/.ssh/config
 vagrant ssh puppet -- -L 4343:127.0.0.1:443 -L 9980:127.0.0.1:9980
 ```
 
@@ -42,3 +43,5 @@ Setup Gitlab + PE:
 ```
 
 Login to [Puppet](https://localhost:4343/auth/login?redirect=/) and [Gitlab](http://localhost:9980/users/sign_in) web console, the passwords can be found in `/opt/boxlab/config/`
+
+Use [VSCode remote](https://code.visualstudio.com/docs/remote/remote-overview) to connect into Puppet vm and open `~/controlrepo`

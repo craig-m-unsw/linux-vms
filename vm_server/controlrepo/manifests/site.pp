@@ -38,4 +38,10 @@ node default {
         include 'role::server_puppet'
     }
 
+    # Puppet DB
+    $hosts_server_puppetdb = ['puppetdb.local', 'puppetdb.mylocal']
+    if $trusted['certname'] in $hosts_server_puppetdb {
+        include 'role::server_puppetdb'
+    }
+
 }

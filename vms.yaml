@@ -38,7 +38,7 @@
   ip: 192.168.60.16
   ram: 512
   cpu: 2
-  disable: false
+  disable: true
 
 - name: fedora37
   box: src/bento/builds/fedora-38-x86_64.virtualbox.box
