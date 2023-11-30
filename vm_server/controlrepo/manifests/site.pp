@@ -26,5 +26,16 @@ File { backup => false }
 # For more on node definitions, see: https://puppet.com/docs/puppet/latest/lang_node_definitions.html
 
 node default {
-}
 
+    # trusted role
+    if $trusted['extensions']['pp_role'] {
+        include "role::${trusted['extensions']['pp_role']}"
+    }
+
+    # Puppet enterprise
+    $hosts_server_puppet = ['puppet.local', 'puppet.mylocal']
+    if $trusted['certname'] in $hosts_server_puppet {
+        include 'role::server_puppet'
+    }
+
+}
