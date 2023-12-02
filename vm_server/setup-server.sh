@@ -58,12 +58,12 @@ fi
 #---------------------------------------------------------
 
 cust_log "install packages"
-sudo dnf install -y -q tmux socat telnet vim nmap whois expect iotop python3.11-pip || exit 1;
+sudo dnf install -y -q tmux socat telnet vim nmap whois expect iotop python3.11-pip || { echo 'ERROR installing dnf package'; exit 1; }
 sudo dnf groupinstall -y -q "Development Tools"
 
 cust_log "install EPEL packages"
 sudo dnf -y -q install epel-release
-sudo dnf -y -q install htop jq pwgen inotify-tools
+sudo dnf -y -q install htop jq pwgen inotify-tools || { echo 'ERROR installing epel package'; exit 1; }
 
 #---------------------------------------------------------
 # Docker
@@ -199,11 +199,10 @@ if [ ! -f /opt/boxlab/config/pe.conf ]; then
     cp -v pe.conf /opt/boxlab/config/pe.conf
     # git sshd prints
     sshd_prints=$(python3.11 pe-ssh-git-conf.py --port 9922 --host gitlab.internal)
-    echo -e "$sshd_prints" >> /opt/boxlab/config/pe.conf
+    echo $sshd_prints | tee -a /opt/boxlab/config/pe.conf
     # admin pw
-    pe_pw_1='"console_admin_password":'
-    pe_pw_2=$(pwgen 20 1)
-    echo -e "${pe_pw_1} \"$pe_pw_2\"" >> /opt/boxlab/config/pe.conf
+    pe_pw=$(pwgen 30 1)
+    echo -e "\"console_admin_password\": \"$pe_pw\"" | tee -a /opt/boxlab/config/pe.conf
 fi
 
 if [ ! -f /opt/boxlab/.pesetup.txt ]; then
@@ -219,29 +218,26 @@ if [ ! -f /opt/boxlab/.pesetup.txt ]; then
     for i in {1..2}; do sudo /usr/local/bin/puppet agent -t; done
     cust_log "puppet agent ran twice"
     sudo /usr/local/bin/puppet infrastructure configure || { echo 'error with puppet infra'; exit 1; }
-
     touch /opt/boxlab/.pesetup.txt
 else
     cust_log "PE alredy running"
 fi
 
-# PE status
 sudo /usr/local/bin/puppet infrastructure status
 
-# puppet cli admin access
 if [ ! -f /home/vagrant/.puppetlabs/token ]; then
     cust_log "setup admin token"
     pupadminpw=$(cat /opt/boxlab/config/pe.conf | grep console_admin_password | awk '{print $2}' | tr -d '"')
     echo "$pupadminpw" | puppet access login --username admin --lifetime 1y; 
 fi
 
-# install support_tasks module
+cust_log "install support_tasks module"
 if [ ! -d .puppetlabs/etc/code/modules/support_tasks ]; then /usr/local/bin/puppet module install puppetlabs-support_tasks; fi
 
-# sync control repo code from git server
+cust_log "sync control repo code from git"
 /opt/puppetlabs/bin/puppet-code deploy --all --wait
 
-# apply puppet code to prod nodes
+cust_log "apply puppet code to prod nodes"
 /usr/local/bin/puppet job run --query 'nodes { catalog_environment = "production" }'
 
 #---------------------------------------------------------

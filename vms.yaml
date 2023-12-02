@@ -18,7 +18,7 @@
   ip: 192.168.60.14
   ram: 4096
   cpu: 4
-  disable: false
+  disable: true
 
 #
 # nodes
@@ -34,15 +34,15 @@
 
 - name: ubuntu22
   box: bento/builds/ubuntu-22.04-x86_64.virtualbox.box
-  hostname: ubuntu20.mylocal
+  hostname: ubuntu22.mylocal
   ip: 192.168.60.16
   ram: 512
   cpu: 2
   disable: true
 
 - name: fedora37
-  box: bento/builds/fedora-38-x86_64.virtualbox.box
-  hostname: fedora38.mylocal
+  box: bento/builds/fedora-37-x86_64.virtualbox.box
+  hostname: fedora37.mylocal
   ip: 192.168.60.17
   ram: 512
   cpu: 2
@@ -58,7 +58,7 @@
 
 - name: rockylinux8
   box: bento/builds/rockylinux-8.8-x86_64.virtualbox.box
-  hostname: fedora38.mylocal
+  hostname: rockylinux8.mylocal
   ip: 192.168.60.19
   ram: 512
   cpu: 2
@@ -66,7 +66,7 @@
 
 - name: rockylinux9
   box: bento/builds/rockylinux-9.2-x86_64.virtualbox.box
-  hostname: fedora38.mylocal
+  hostname: rockylinux9.mylocal
   ip: 192.168.60.20
   ram: 512
   cpu: 2
