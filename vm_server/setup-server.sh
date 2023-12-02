@@ -197,9 +197,10 @@ if [ ! -f /opt/boxlab/config/pe.conf ]; then
     cd "$MYSCRIPTPATH" || exit 1
     if [ ! -f pe.conf ]; then { cust_log "ERROR missing pe.conf" && exit 1; } fi
     cp -v pe.conf /opt/boxlab/config/pe.conf
+    # git sshd prints
     sshd_prints=$(python3.11 pe-ssh-git-conf.py --port 9922 --host gitlab.internal)
-    r10kn1='"puppet_enterprise::profile::master::r10k_known_hosts":'
-    echo -e "\n${r10kn1} $sshd_prints" >> /opt/boxlab/config/pe.conf
+    echo -e "$sshd_prints" >> /opt/boxlab/config/pe.conf
+    # admin pw
     pe_pw_1='"console_admin_password":'
     pe_pw_2=$(pwgen 20 1)
     echo -e "${pe_pw_1} \"$pe_pw_2\"" >> /opt/boxlab/config/pe.conf

@@ -33,15 +33,9 @@ node default {
     }
 
     # Puppet enterprise
-    $hosts_server_puppet = ['puppet.local', 'puppet.mylocal']
+    $hosts_server_puppet = ['puppet.local', 'puppet.mylocal', 'puppet.internal']
     if $trusted['certname'] in $hosts_server_puppet {
         include 'role::server_puppet'
-    }
-
-    # Puppet DB
-    $hosts_server_puppetdb = ['puppetdb.local', 'puppetdb.mylocal']
-    if $trusted['certname'] in $hosts_server_puppetdb {
-        include 'role::server_puppetdb'
     }
 
 }

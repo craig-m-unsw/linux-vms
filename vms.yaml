@@ -5,7 +5,7 @@
 #
 
 - name: puppet
-  box: src/bento/builds/rockylinux-9.2-x86_64.virtualbox.box
+  box: bento/builds/rockylinux-9.2-x86_64.virtualbox.box
   hostname: puppet.mylocal
   ip: 192.168.60.13
   ram: 10000
@@ -13,7 +13,7 @@
   fshare: vm_server/
 
 - name: puppetdb
-  box: src/bento/builds/rockylinux-9.2-x86_64.virtualbox.box
+  box: bento/builds/rockylinux-9.2-x86_64.virtualbox.box
   hostname: puppetdb.mylocal
   ip: 192.168.60.14
   ram: 4096
@@ -25,7 +25,7 @@
 #
 
 - name: ubuntu20
-  box: src/bento/builds/ubuntu-20.04-x86_64.virtualbox.box
+  box: bento/builds/ubuntu-20.04-x86_64.virtualbox.box
   hostname: ubuntu20.mylocal
   ip: 192.168.60.15
   ram: 512
@@ -33,7 +33,7 @@
   disable: true
 
 - name: ubuntu22
-  box: src/bento/builds/ubuntu-22.04-x86_64.virtualbox.box
+  box: bento/builds/ubuntu-22.04-x86_64.virtualbox.box
   hostname: ubuntu20.mylocal
   ip: 192.168.60.16
   ram: 512
@@ -41,7 +41,7 @@
   disable: true
 
 - name: fedora37
-  box: src/bento/builds/fedora-38-x86_64.virtualbox.box
+  box: bento/builds/fedora-38-x86_64.virtualbox.box
   hostname: fedora38.mylocal
   ip: 192.168.60.17
   ram: 512
@@ -49,7 +49,7 @@
   disable: true
 
 - name: fedora38
-  box: src/bento/builds/fedora-38-x86_64.virtualbox.box
+  box: bento/builds/fedora-38-x86_64.virtualbox.box
   hostname: fedora38.mylocal
   ip: 192.168.60.18
   ram: 512
@@ -57,7 +57,7 @@
   disable: true
 
 - name: rockylinux8
-  box: src/bento/builds/rockylinux-8.8-x86_64.virtualbox.box
+  box: bento/builds/rockylinux-8.8-x86_64.virtualbox.box
   hostname: fedora38.mylocal
   ip: 192.168.60.19
   ram: 512
@@ -65,7 +65,7 @@
   disable: false
 
 - name: rockylinux9
-  box: src/bento/builds/rockylinux-9.2-x86_64.virtualbox.box
+  box: bento/builds/rockylinux-9.2-x86_64.virtualbox.box
   hostname: fedora38.mylocal
   ip: 192.168.60.20
   ram: 512
@@ -73,7 +73,7 @@
   disable: false
 
 - name: oracle8
-  box: src/bento/builds/oracle-8.8-x86_64.virtualbox.box
+  box: bento/builds/oracle-8.8-x86_64.virtualbox.box
   hostname: oracle8.mylocal
   ip: 192.168.60.21
   ram: 512
@@ -81,7 +81,7 @@
   disable: true
 
 - name: oracle9
-  box: src/bento/builds/oracle-9.2-x86_64.virtualbox.box
+  box: bento/builds/oracle-9.2-x86_64.virtualbox.box
   hostname: oracle9.mylocal
   ip: 192.168.60.22
   ram: 512

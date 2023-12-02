@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-get sshd fingerprints of git server for PE config.
-
-"puppet_enterprise::profile::master::r10k_known_hosts": <script-output>
-
+set sshd fingerprints of git server in PE config.
 https://www.puppet.com/docs/pe/2023.5/code_mgr_config
 '''
 
@@ -47,7 +44,7 @@ def main():
 
     if ssh_keys:
         processed_keys = process_ssh_keys(ssh_keys)
-        print(json.dumps(processed_keys, indent=None))
+        print('"puppet_enterprise::profile::master::r10k_known_hosts": ' + json.dumps(processed_keys, indent=None))
 
 if __name__ == "__main__":
     main()
