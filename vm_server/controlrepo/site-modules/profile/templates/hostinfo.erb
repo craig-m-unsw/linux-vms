@@ -1,0 +1,13 @@
+<%# Write out info to file on host. %>
+# puppet managed file. It cannot be managed manually.
+
+lsbdistdescription:     <%= @lsbdistdescription %>
+platform_tag:           <%= @platform_tag %>
+clientcert:             <%= @clientcert %>
+host name:              <%= @fqdn %>
+host alias:             <%= @hostname %>
+The @Role is:           <%= @role -%>
+
+The $verdata_string:    <%= @verdata_string %>
+
+<%# %>

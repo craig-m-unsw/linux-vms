@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 '''
-Automate setup of new Gitlab instance
+Automate configuration of new Gitlab instance
+create new user, group and project
 https://python-gitlab.readthedocs.io/en/stable/index.html
 '''
 

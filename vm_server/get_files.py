@@ -19,11 +19,6 @@ file_info = [
     { "url": "https://download.docker.com/linux/centos/docker-ce.repo", "sha256": "8ab5599eef0afcac10cbd3e8670873efee20fcceb5fb3526a62edeade603cec7" },
 ]
 
-def check_permissions(folder):
-    if os.geteuid() == 0:
-        print("Error: Running as root is not allowed.")
-        sys.exit(1)
-
 def download_file(url, filename):
     try:
         print(f"Downloading: {url} -> {filename}")
@@ -37,10 +32,11 @@ def main():
     parser = argparse.ArgumentParser(description='Download files from specified URLs.')
     parser.add_argument('--download_folder', required=True, help='Folder to download files into')
     args = parser.parse_args()
-
     download_folder = args.download_folder
 
-    check_permissions(download_folder)
+    if os.geteuid() == 0:
+        print("Error: Running as root is not allowed.")
+        sys.exit(1)
 
     if not os.path.exists(download_folder):
         os.makedirs(download_folder)

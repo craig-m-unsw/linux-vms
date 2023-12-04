@@ -2,13 +2,6 @@
 
 Use the [chef](https://www.chef.io/products/chef-infra) bento [project](https://github.com/chef/bento) to build the [Vagrant](https://www.vagrantup.com/) [boxes](https://app.vagrantup.com/bento), then run Puppet Enterprise to configure them.
 
-Tested November 2023 on:
-
-* Ubuntu 22.04.3 LTS (Jammy Jellyfish)
-* Virtual Box 7.0.12 r159484 (Qt5.15.3)
-* Packer 1.9.4
-* Vagrant 2.4.0
-
 ## build
 
 Build VM box images. Some of the iso url might need updating, the Debian url changed from 'release' to 'archive'.
@@ -45,3 +38,13 @@ Setup Gitlab + PE:
 Login to [Puppet](https://localhost:4343/auth/login?redirect=/) and [Gitlab](http://localhost:9980/users/sign_in) web console, the passwords can be found in `/opt/boxlab/config/`
 
 Use [VSCode remote](https://code.visualstudio.com/docs/remote/remote-overview) to connect into Puppet vm and open `~/controlrepo`
+
+### nodes
+
+Put nodes under puppet control:
+
+```shell
+vagrant ssh rockylinux9
+echo '192.168.60.13     puppet.mylocal puppet.local' | sudo tee -a /etc/hosts
+curl --insecure https://puppet.mylocal:8140/packages/current/install.bash | sudo bash
+```

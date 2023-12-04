@@ -1,4 +1,4 @@
-class profile::base::filemon {
+class profile::base::linux::filemon {
 
   file {
     default:

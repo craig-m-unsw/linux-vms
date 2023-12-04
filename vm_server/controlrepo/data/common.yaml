@@ -1,2 +1,2 @@
 ---
-message: "This node is using common data"
+profile::verdata::teststring: 'using common.yaml'

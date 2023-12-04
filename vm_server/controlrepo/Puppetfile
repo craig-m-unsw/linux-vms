@@ -1,6 +1,8 @@
 forge 'https://forge.puppet.com'
 
 # Modules from the Puppet Forge
+mod 'puppetlabs-puppetdb', '7.13.0'
+mod 'puppetlabs-postgresql', '10.0.2'
 mod 'puppetlabs-inifile', '6.1.0'
 mod 'puppetlabs-stdlib', '9.4.1'
 mod 'puppetlabs-concat', '9.0.0'
@@ -10,3 +12,4 @@ mod 'puppetlabs-motd', '7.1.0'
 mod 'puppetlabs-firewall', '7.0.2'
 mod 'puppetlabs-powershell', '6.0.0'
 mod 'puppetlabs-kubernetes', '8.0.0'
+mod 'puppetlabs-puppetserver_gem', '1.1.1'

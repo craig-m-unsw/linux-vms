@@ -58,7 +58,7 @@ fi
 #---------------------------------------------------------
 
 cust_log "install packages"
-sudo dnf install -y -q tmux socat telnet vim nmap whois expect iotop python3.11-pip || { echo 'ERROR installing dnf package'; exit 1; }
+sudo dnf install -y -q tmux socat telnet vim nmap whois expect iotop python3.11-pip tcpdump || { echo 'ERROR installing dnf package'; exit 1; }
 sudo dnf groupinstall -y -q "Development Tools"
 
 cust_log "install EPEL packages"
@@ -188,9 +188,6 @@ else
     cust_log "puppet installer already extracted"
 fi
 
-# use less RAM
-if [ ! -f /etc/sysconfig/puppetserver ]; then echo 'JAVA_ARGS="-Xms1g -Xmx1g"' | sudo tee -a /etc/sysconfig/puppetserver; fi
-
 # gen puppet config - HOCON format
 if [ ! -f /opt/boxlab/config/pe.conf ]; then
     cust_log "cust pe.conf"
@@ -222,6 +219,9 @@ if [ ! -f /opt/boxlab/.pesetup.txt ]; then
 else
     cust_log "PE alredy running"
 fi
+
+# /etc/sysconfig/pe-puppetserver
+#JAVA_ARGS="-Xmx2048m -Xms2048m -Xss2m -Djava.io.tmpdir=/opt/puppetlabs/server/apps/puppetserver/tmp -XX:ReservedCodeCacheSize=512m -Xlog:gc*:file=/var/log/puppetlabs/puppetserver/puppetserver_gc.log:time,uptime,level,tags:filecount=16,filesize=16m -Djdk.tls.ephemeralDHKeySize=2048 -XX:+UseStringDeduplication -Djava.security.properties==/opt/puppetlabs/share/jdk17-security"
 
 sudo /usr/local/bin/puppet infrastructure status
 

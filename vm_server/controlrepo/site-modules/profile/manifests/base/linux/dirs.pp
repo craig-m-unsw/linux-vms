@@ -1,4 +1,4 @@
-class profile::base::dirs {
+class profile::base::linux::dirs {
 
   file {
     default:

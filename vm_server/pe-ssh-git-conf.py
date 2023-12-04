@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-set sshd fingerprints of git server in PE config.
+set sshd fingerprints of git server for PE config.
 https://www.puppet.com/docs/pe/2023.5/code_mgr_config
 '''
 
@@ -38,8 +38,8 @@ def main():
     parser = argparse.ArgumentParser(description='Process SSH keys from a given host and port.')
     parser.add_argument('--port', type=int, required=True, help='Port for SSH connection')
     parser.add_argument('--host', required=True, help='Host for SSH connection')
-    args = parser.parse_args()
 
+    args = parser.parse_args()
     ssh_keys = get_ssh_keys(args.port, args.host)
 
     if ssh_keys:

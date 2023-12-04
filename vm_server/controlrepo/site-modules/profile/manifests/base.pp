@@ -1,7 +1,10 @@
 class profile::base {
 
   include profile::base::motd
-  include profile::base::dirs
-  include profile::base::filemon
+
+  if $facts['kernel'] == 'Linux' {
+    include profile::base::linux::dirs
+    include profile::base::linux::filemon
+  }
 
 }
