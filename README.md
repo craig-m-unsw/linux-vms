@@ -10,7 +10,7 @@ Build VM box images. Some of the iso url might need updating, the Debian url cha
 ./make-bento-boxes.sh
 ```
 
-Download installers:
+Download everything we need (eg Puppet Enterprise):
 
 ```shell
 python3 vm_server/get_files.py --download_folder=vm_server/src/
@@ -46,5 +46,5 @@ Put nodes under puppet control:
 ```shell
 vagrant ssh rockylinux9
 echo '192.168.60.13     puppet.mylocal puppet.local' | sudo tee -a /etc/hosts
-curl --insecure https://puppet.mylocal:8140/packages/current/install.bash | sudo bash
+curl --insecure https://puppet.mylocal:8140/packages/current/install.bash | sudo bash -s extension_requests:pp_role=node
 ```

@@ -188,34 +188,34 @@ else
     cust_log "puppet installer already extracted"
 fi
 
-# gen puppet config - HOCON format
+# generate puppet config (HOCON format)
 if [ ! -f /opt/boxlab/config/pe.conf ]; then
     cust_log "cust pe.conf"
     cd "$MYSCRIPTPATH" || exit 1
     if [ ! -f pe.conf ]; then { cust_log "ERROR missing pe.conf" && exit 1; } fi
     cp -v pe.conf /opt/boxlab/config/pe.conf
-    # git sshd prints
+    # get r10k_known_hosts value
     sshd_prints=$(python3.11 pe-ssh-git-conf.py --port 9922 --host gitlab.internal)
-    echo $sshd_prints | tee -a /opt/boxlab/config/pe.conf
-    # admin pw
+    echo -e "\n$sshd_prints" | tee -a /opt/boxlab/config/pe.conf
+    # puppet admin pw
     pe_pw=$(pwgen 30 1)
     echo -e "\"console_admin_password\": \"$pe_pw\"" | tee -a /opt/boxlab/config/pe.conf
 fi
 
-if [ ! -f /opt/boxlab/.pesetup.txt ]; then
-    cust_log "run puppet installer"
+if [ ! -f /opt/boxlab/config/pesetup.txt ]; then
     # copy ssh deploy key
     sudo mkdir -pv /etc/puppetlabs/puppetserver/ssh/
     sudo cp -v /opt/boxlab/config/pekey001.ed25519 /etc/puppetlabs/puppetserver/ssh/
     # Install PE
     if [ ! -f /opt/boxlab/config/pe.conf ]; then { cust_log "ERROR missing custom pe.conf" && exit 1; } fi
+    cust_log "run puppet installer"
     sudo DISABLE_ANALYTICS=1 /opt/boxlab/puppet-enterprise-2023.5.0-el-9-x86_64/puppet-enterprise-installer -c /opt/boxlab/config/pe.conf | tee -a /opt/boxlab/pe-setup.log || { cust_log 'ERROR PE installer failed'; exit 1; }
     cust_log "puppet installed"
     # run agent
     for i in {1..2}; do sudo /usr/local/bin/puppet agent -t; done
     cust_log "puppet agent ran twice"
     sudo /usr/local/bin/puppet infrastructure configure || { echo 'error with puppet infra'; exit 1; }
-    touch /opt/boxlab/.pesetup.txt
+    touch /opt/boxlab/config/pesetup.txt
 else
     cust_log "PE alredy running"
 fi
