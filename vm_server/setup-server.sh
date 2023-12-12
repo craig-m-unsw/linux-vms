@@ -129,7 +129,7 @@ fi
 
 if [ ! -f /opt/boxlab/config/gitlab.txt ]; then
     cust_log "do gitlab conf"
-    pip3.11 install python-gitlab==4.1.1 || exit 1;
+    pip3.11 install python-gitlab==4.1.1 || { echo 'error pip install gitlab'; exit 1; }
     cd "$MYSCRIPTPATH" || exit 1
     python3.11 setup-gitlab.py --url http://127.0.0.1:9980 --token "$(cat /opt/boxlab/config/gitlab_token.txt)" || { echo "setup-gl.py error"; exit 1; }
     touch /opt/boxlab/config/gitlab.txt
@@ -220,8 +220,12 @@ else
     cust_log "PE alredy running"
 fi
 
-# /etc/sysconfig/pe-puppetserver
-#JAVA_ARGS="-Xmx2048m -Xms2048m -Xss2m -Djava.io.tmpdir=/opt/puppetlabs/server/apps/puppetserver/tmp -XX:ReservedCodeCacheSize=512m -Xlog:gc*:file=/var/log/puppetlabs/puppetserver/puppetserver_gc.log:time,uptime,level,tags:filecount=16,filesize=16m -Djdk.tls.ephemeralDHKeySize=2048 -XX:+UseStringDeduplication -Djava.security.properties==/opt/puppetlabs/share/jdk17-security"
+if [ ! -f /opt/boxlab/config/eyaml.log ]; then
+    cust_log "installing eyaml"
+    sudo /opt/puppetlabs/bin/puppetserver gem install hiera-eyaml >> /opt/boxlab/config/eyaml.log || { echo 'failed to install eyaml'; exit 1; }
+else
+    cust_log "eyaml already installed"
+fi
 
 sudo /usr/local/bin/puppet infrastructure status
 
