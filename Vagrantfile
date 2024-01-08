@@ -20,7 +20,6 @@ Vagrant.configure("2") do |config|
 
             node.vm.box = machine["box"]
             node.vm.hostname = machine["hostname"]
-            config.vbguest.auto_update = false
 
             if machine.has_key? 'ip'
                 node.vm.network "private_network", ip: machine["ip"]

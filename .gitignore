@@ -5,6 +5,7 @@
 **.tar.gz
 **.log
 .vagrant/
+local/
 vms_cust.yaml
 bento/
 vm_server/src/*

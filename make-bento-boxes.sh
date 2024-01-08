@@ -29,7 +29,6 @@ declare -a templates=(
 
 for template in "${templates[@]}"; do
     packer build -only=virtualbox-iso.vm -var-file="$template" ./packer_templates;
-    sleep 30s;
 done
 
 echo 'done';

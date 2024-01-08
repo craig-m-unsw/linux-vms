@@ -1,89 +1,45 @@
 ---
 
-#
 # puppet infra
-#
 
 - name: puppet
-  box: bento/builds/rockylinux-9.2-x86_64.virtualbox.box
+  box: bento/builds/rockylinux-9.3-x86_64.virtualbox.box
   hostname: puppet.mylocal
   ip: 192.168.60.13
-  ram: 10000
-  cpu: 4
+  ram: 12240
+  cpu: 8
   fshare: vm_server/
 
-- name: puppetdb
-  box: bento/builds/rockylinux-9.2-x86_64.virtualbox.box
-  hostname: puppetdb.mylocal
-  ip: 192.168.60.14
-  ram: 4096
-  cpu: 4
-  disable: true
-
-#
 # nodes
-#
 
 - name: ubuntu20
   box: bento/builds/ubuntu-20.04-x86_64.virtualbox.box
   hostname: ubuntu20.mylocal
   ip: 192.168.60.15
-  ram: 512
+  ram: 1024
   cpu: 2
-  disable: true
+  disable: false
 
 - name: ubuntu22
   box: bento/builds/ubuntu-22.04-x86_64.virtualbox.box
   hostname: ubuntu22.mylocal
   ip: 192.168.60.16
-  ram: 512
+  ram: 1024
   cpu: 2
-  disable: true
-
-- name: fedora37
-  box: bento/builds/fedora-37-x86_64.virtualbox.box
-  hostname: fedora37.mylocal
-  ip: 192.168.60.17
-  ram: 512
-  cpu: 2
-  disable: true
-
-- name: fedora38
-  box: bento/builds/fedora-38-x86_64.virtualbox.box
-  hostname: fedora38.mylocal
-  ip: 192.168.60.18
-  ram: 512
-  cpu: 2
-  disable: true
+  disable: false
 
 - name: rockylinux8
-  box: bento/builds/rockylinux-8.8-x86_64.virtualbox.box
+  box: bento/builds/rockylinux-8.9-x86_64.virtualbox.box
   hostname: rockylinux8.mylocal
   ip: 192.168.60.19
-  ram: 512
+  ram: 1024
   cpu: 2
   disable: false
 
 - name: rockylinux9
-  box: bento/builds/rockylinux-9.2-x86_64.virtualbox.box
+  box: bento/builds/rockylinux-9.3-x86_64.virtualbox.box
   hostname: rockylinux9.mylocal
   ip: 192.168.60.20
-  ram: 512
+  ram: 1024
   cpu: 2
   disable: false
-
-- name: oracle8
-  box: bento/builds/oracle-8.8-x86_64.virtualbox.box
-  hostname: oracle8.mylocal
-  ip: 192.168.60.21
-  ram: 512
-  cpu: 2
-  disable: true
-
-- name: oracle9
-  box: bento/builds/oracle-9.2-x86_64.virtualbox.box
-  hostname: oracle9.mylocal
-  ip: 192.168.60.22
-  ram: 512
-  cpu: 2
-  disable: true

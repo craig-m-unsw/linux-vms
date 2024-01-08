@@ -11,6 +11,8 @@
 # init
 #---------------------------------------------------------
 
+pentver="puppet-enterprise-2023.5.0-el-9-x86_64"
+
 cust_log() {
     local message="$1"
     local tag="box_lab"
@@ -178,12 +180,12 @@ fi
 #---------------------------------------------------------
 
 # extract installer
-if [ ! -f /opt/boxlab/puppet-enterprise-2023.5.0-el-9-x86_64/puppet-enterprise-installer ]; then
+if [ ! -f "/opt/boxlab/${pentver}/puppet-enterprise-installer" ]; then
     cust_log "extract puppet"
     cd "$MYSCRIPTPATH" || exit 1
     gpg --import src/puppet-gpg-signing-key-20250406.pub
-    gpg --verify src/puppet-enterprise-2023.5.0-el-9-x86_64.tar.gz.asc || exit 1
-    tar -xf src/puppet-enterprise-2023.5.0-el-9-x86_64.tar.gz -C /opt/boxlab/ || exit 1
+    gpg --verify src/${pentver}.tar.gz.asc || exit 1
+    tar -xf src/${pentver}.tar.gz -C /opt/boxlab/ || exit 1
 else
     cust_log "puppet installer already extracted"
 fi
@@ -209,7 +211,7 @@ if [ ! -f /opt/boxlab/config/pesetup.txt ]; then
     # Install PE
     if [ ! -f /opt/boxlab/config/pe.conf ]; then { cust_log "ERROR missing custom pe.conf" && exit 1; } fi
     cust_log "run puppet installer"
-    sudo DISABLE_ANALYTICS=1 /opt/boxlab/puppet-enterprise-2023.5.0-el-9-x86_64/puppet-enterprise-installer -c /opt/boxlab/config/pe.conf | tee -a /opt/boxlab/pe-setup.log || { cust_log 'ERROR PE installer failed'; exit 1; }
+    sudo DISABLE_ANALYTICS=1 /opt/boxlab/${pentver}/puppet-enterprise-installer -c /opt/boxlab/config/pe.conf | tee -a /opt/boxlab/pe-setup.log || { cust_log 'ERROR PE installer failed'; exit 1; }
     cust_log "puppet installed"
     # run agent
     for i in {1..2}; do sudo /usr/local/bin/puppet agent -t; done
