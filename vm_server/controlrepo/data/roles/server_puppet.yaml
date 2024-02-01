@@ -1,2 +1,2 @@
 ---
-profile::verdata::teststring: 'using server_puppet.yaml role'
+profile::verdata::teststring: 'using roles/server_puppet.yaml'

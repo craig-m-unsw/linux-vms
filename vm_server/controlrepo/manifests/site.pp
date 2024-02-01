@@ -38,4 +38,10 @@ node default {
         include 'role::server_puppet'
     }
 
+    # windows hosts (temp)
+    $hosts_ms_windows = ['windows11.local', 'windows11', 'windows11.mylocal']
+    if $trusted['certname'] in $hosts_ms_windows {
+        include 'role::node'
+    }
+
 }

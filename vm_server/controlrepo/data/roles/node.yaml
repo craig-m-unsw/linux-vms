@@ -1,2 +1,2 @@
 ---
-profile::verdata::teststring: 'using node.yaml role'
+profile::verdata::teststring: 'using roles/node.yaml'

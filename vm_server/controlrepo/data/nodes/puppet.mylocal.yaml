@@ -1,3 +1,3 @@
 ---
-profile::verdata::teststring: 'using server_puppet.yaml node'
+profile::verdata::teststring: 'using nodes/server_puppet.yaml'
 

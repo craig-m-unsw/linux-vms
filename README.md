@@ -39,6 +39,17 @@ Login to [Puppet](https://localhost:4343/auth/login?redirect=/) and [Gitlab](htt
 
 Use [VSCode remote](https://code.visualstudio.com/docs/remote/remote-overview) to connect into Puppet vm and open `~/controlrepo`
 
+#### tune
+
+Run
+
+```
+suduo su
+puppet infrastructure tune
+```
+
+This can be changed, then pasted into your hiera data.
+
 ### nodes
 
 Put nodes under puppet control:
@@ -47,4 +58,14 @@ Put nodes under puppet control:
 vagrant ssh rockylinux9
 echo '192.168.60.13     puppet.mylocal puppet.local' | sudo tee -a /etc/hosts
 curl --insecure https://puppet.mylocal:8140/packages/current/install.bash | sudo bash -s extension_requests:pp_role=node
+```
+
+Windows nodes:
+
+add the host file entry in `C:\Windows\system32\drivers\etc\hosts`.
+
+```shell
+[System.Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
+[Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = New-Object System.Net.WebClient; `
+$webClient.DownloadFile('https://puppet.mylocal:8140/packages/current/install.ps1', 'install.ps1'); .\install.ps1 -v
 ```

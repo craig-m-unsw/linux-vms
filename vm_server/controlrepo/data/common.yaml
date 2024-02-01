@@ -1,2 +1,2 @@
 ---
-profile::verdata::teststring: 'using common.yaml'
+profile::verdata::teststring: 'using ./common.yaml'

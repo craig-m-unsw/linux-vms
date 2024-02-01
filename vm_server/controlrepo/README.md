@@ -7,3 +7,5 @@ Other snippets from:
 * https://github.com/kinners00/puppet-examples/tree/production/examples/puppet-code
 * https://github.com/wikimedia/operations-puppet
 
+
+-- eof --

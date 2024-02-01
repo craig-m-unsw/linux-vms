@@ -43,3 +43,11 @@
   ram: 1024
   cpu: 2
   disable: false
+
+- name: windows11
+  box: bento/builds/windows-11-x86_64.virtualbox.box
+  hostname: windows11
+  ip: 192.168.60.21
+  ram: 4096
+  cpu: 4
+  disable: false

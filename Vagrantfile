@@ -41,18 +41,6 @@ Vagrant.configure("2") do |config|
         end
     end
 
-    config.trigger.after [:up, :resume, :reload] do |t|
-        t.info = "running inlinescript_post"
-        t.run_remote = { inline: $inlinescript_post, :privileged => false }
-    end
-
 end
-
-$inlinescript_post = <<-SCRIPT
-echo '-----------------------';
-uname -a;
-uptime;
-echo '-----------------------';
-SCRIPT
 
 # vim: set filetype=ruby:

@@ -1,13 +1,37 @@
 ---
 version: 5
-
 defaults:
-  datadir: "data"
+  datadir: data
+  data_hash: yaml_data
 
 hierarchy:
-  - name: "Yaml backend"
-    data_hash: yaml_data
+
+  # unique host data
+  - name: "Nodes"
     paths:
       - "nodes/%{trusted.certname}.yaml"
+
+  - name: "role OS ver"
+    paths:
+     - "roles/%{trusted.extensions.pp_role}/%{facts.os.name}-%{facts.os.release.major}.yaml"
+
+  # computer role
+  - name: "Roles"
+    paths:
       - "roles/%{trusted.extensions.pp_role}.yaml"
+
+  # operating system version
+  - name: "os ver"
+    path: "os/%{facts.os.name}/%{facts.os.release.major}.yaml"
+
+  # operating system family
+  - name: "Per-OS family defaults"
+    path: "os/%{facts.os.family}.yaml"
+
+  - name: "Per-OS kernel"
+    path: "os/%{facts.os.kernel}.yaml"
+
+  # data for all hosts
+  - name: "Common"
+    paths:
       - "common.yaml"
