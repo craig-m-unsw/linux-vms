@@ -1,7 +1,9 @@
 class profile::infofile (
-  $verdata_string = lookup('profile::verdata::teststring', String, first, "defaultdata"),
+  $hdata_string = lookup('profile::hdata::test_first', String, first, 'defaultdata'),
+  $hdata_combo = lookup('profile::hdata::test_combo', undef, unique, 'defaultdata'),
 ) {
 
+  # look up role if exists
   if $trusted['extensions']['pp_role'] {
     $my_role = $trusted['extensions']['pp_role']
   } else {
@@ -17,6 +19,7 @@ class profile::infofile (
 
   } else {
 
+    # *nix based OS
     file { '/etc/opt/hostinfo.txt':
         ensure  => file,
         owner   => 'root',

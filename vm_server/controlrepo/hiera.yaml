@@ -11,6 +11,7 @@ hierarchy:
     paths:
       - "nodes/%{trusted.certname}.yaml"
 
+  # computer role + OS
   - name: "role OS ver"
     paths:
      - "roles/%{trusted.extensions.pp_role}/%{facts.os.name}-%{facts.os.release.major}.yaml"

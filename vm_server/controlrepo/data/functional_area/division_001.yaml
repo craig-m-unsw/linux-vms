@@ -1,0 +1,3 @@
+---
+profile::hdata::test_first: 'using functional_area/division_001.yaml'
+profile::hdata::test_combo: 'division_001.yaml'

@@ -1,13 +1,19 @@
-<%# Write out info to file on host. %>
-# puppet managed file. It cannot be managed manually.
+<%# Write out info to file on host. %># ------------------------
+# puppet managed file
+# ------------------------
 
-lsbdistdescription:     <%= @lsbdistdescription %>
-platform_tag:           <%= @platform_tag %>
-clientcert:             <%= @clientcert %>
-host name:              <%= @fqdn %>
-host alias:             <%= @hostname %>
-The @Role is:           <%= @role -%>
+ServerName            <%= @fqdn %>
+hostname              <%= @hostname %>
 
-The $verdata_string:    <%= @verdata_string %>
+clientcert:           <%= @clientcert %>
+Role:                 <%= @my_role %>
+kernel:               <%= @kernel %>
+puppet:               <%= @clientversion %>
+agent_specified_environment <%= @agent_specified_environment %>
 
-<%# %>
+top of hierachy hdata::test_first:  <%= @hdata_string %>
+
+all data        hdata::test_combo:  <%= @hdata_combo %>
+
+# ------------------------ eof ------------------------
+<%# foobar %>

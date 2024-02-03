@@ -1,2 +1,3 @@
 ---
-profile::verdata::teststring: 'using roles/node.yaml'
+profile::hdata::test_first: 'using roles/node.yaml'
+profile::hdata::test_combo: 'node.yaml'

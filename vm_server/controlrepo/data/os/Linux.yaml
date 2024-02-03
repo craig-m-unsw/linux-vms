@@ -1,0 +1,8 @@
+---
+profile::hdata::test_first: 'using os/Linux.yaml'
+profile::hdata::test_combo: 'Linux.yaml'
+profile::base::linux::filemon:
+  - '/etc/passwd'
+  - '/etc/group'
+  - '/etc/shadow'
+  - '/etc/gshadow'

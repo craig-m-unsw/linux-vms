@@ -1,3 +1,24 @@
 ---
-profile::verdata::teststring: 'using nodes/server_puppet.yaml'
-
+profile::hdata::test_first: 'using nodes/puppet.mylocal.yaml'
+profile::hdata::test_combo: 'puppet.mylocal.yaml'
+# tuning data
+puppet_enterprise::profile::database::shared_buffers: 1024MB
+puppet_enterprise::puppetdb::command_processing_threads: 1
+puppet_enterprise::profile::puppetdb::java_args:
+  Xms: 512m
+  Xmx: 512m
+puppet_enterprise::profile::orchestrator::jruby_max_active_instances: 1
+puppet_enterprise::profile::orchestrator::java_args:
+  Xms: 512m
+  Xmx: 512m
+puppet_enterprise::profile::master::java_args:
+  Xms: 512m
+  Xmx: 512m
+puppet_enterprise::profile::console::java_args:
+  Xms: 512m
+  Xmx: 512m
+puppet_enterprise::master::puppetserver::reserved_code_cache: 256m
+puppet_enterprise::master::puppetserver::jruby_max_active_instances: 1
+puppet_infrastructure_tune::metadata:
+  pe_version: 2023.5.0
+  tune_date: '2024-01-25'
