@@ -13,8 +13,8 @@ from pathlib import Path
 
 file_info = [
     { "url": "https://downloads.puppet.com/puppet-gpg-signing-key-20250406.pub", "sha256": "4d5a9c73f97235eebe8c69f728aa2efcc8e1ee02282f972efdbbbd3a430be454" },
-    { "url": "https://pm.puppetlabs.com/puppet-enterprise/2023.5.0/puppet-enterprise-2023.5.0-el-9-x86_64.tar.gz", "sha256": "13d51a9b01fbe1ed41174df8d0fbd4dde6d7946375f3326db839af8080d1603b" },
-    { "url": "https://pm.puppetlabs.com/puppet-enterprise/2023.5.0/puppet-enterprise-2023.5.0-el-9-x86_64.tar.gz.asc", "sha256": "fda87b4877817819f45109e652f417be99e0fd5bd009199c457bbcff69889fa9" },
+    { "url": "https://pm.puppetlabs.com/puppet-enterprise/2023.6.0/puppet-enterprise-2023.6.0-el-9-x86_64.tar.gz", "sha256": "13d51a9b01fbe1ed41174df8d0fbd4dde6d7946375f3326db839af8080d1603b" },
+    { "url": "https://pm.puppetlabs.com/puppet-enterprise/2023.6.0/puppet-enterprise-2023.6.0-el-9-x86_64.tar.gz.asc", "sha256": "fda87b4877817819f45109e652f417be99e0fd5bd009199c457bbcff69889fa9" },
     { "url": "https://github.com/puppetlabs/control-repo/archive/refs/tags/1.1.0.tar.gz", "sha256": "895bb2caea754b06709ab701fab2ae2b56268c6b22576ce6ffe9703c556f52b8" },
     { "url": "https://download.docker.com/linux/centos/docker-ce.repo", "sha256": "8ab5599eef0afcac10cbd3e8670873efee20fcceb5fb3526a62edeade603cec7" },
     { "url": "https://github.com/ComplianceAsCode/content/releases/download/v0.1.71/scap-security-guide-0.1.71.tar.bz2", "sha256": "bfa1e9b5c17d8caa937433896c31461424e07ae3b95378bd67c6d369a3e51aae" },
