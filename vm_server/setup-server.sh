@@ -11,7 +11,7 @@
 # init
 #---------------------------------------------------------
 
-pentver="puppet-enterprise-2023.5.0-el-9-x86_64"
+pentver="puppet-enterprise-2023.6.0-el-9-x86_64"
 
 cust_log() {
     local message="$1"
