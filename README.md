@@ -43,8 +43,8 @@ Use [VSCode remote](https://code.visualstudio.com/docs/remote/remote-overview) t
 
 Run
 
-```
-suduo su
+```shell
+sudo su
 puppet infrastructure tune
 ```
 
@@ -67,5 +67,5 @@ add the host file entry in `C:\Windows\system32\drivers\etc\hosts`.
 ```shell
 [System.Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
 [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = New-Object System.Net.WebClient; `
-$webClient.DownloadFile('https://puppet.mylocal:8140/packages/current/install.ps1', 'install.ps1'); .\install.ps1 -v
+$webClient.DownloadFile('https://puppet.mylocal:8140/packages/current/install.ps1', 'install.ps1'); .\install.ps1 -v "extension_requests:pp_role=node"
 ```
