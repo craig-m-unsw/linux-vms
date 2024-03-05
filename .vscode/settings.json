@@ -1,0 +1,10 @@
+{
+    "editor.renderWhitespace": "all",
+    "workbench.colorCustomizations": {
+        // hide these files in the editor
+        "files.exclude": {
+                "**/*.iso": true,
+                "**/*.box": true
+        }
+    }
+}

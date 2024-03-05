@@ -52,7 +52,7 @@ This can be changed, then pasted into your hiera data.
 
 ### nodes
 
-Put nodes under puppet control:
+Put Linux nodes under puppet control:
 
 ```shell
 vagrant ssh rockylinux9
