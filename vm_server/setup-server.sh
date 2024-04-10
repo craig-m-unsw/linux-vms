@@ -21,6 +21,7 @@ cust_log() {
 }
 # sudo journalctl -t box_lab -f
 
+# show banner
 MYSCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd "$MYSCRIPTPATH" || exit 1
 head -n 8 "$0"
@@ -89,6 +90,7 @@ fi
 #---------------------------------------------------------
 
 cd gitlab || exit 1
+# bring up containers
 if [ -f docker-compose.yml ]; then
     cust_log "start Gitlab container setup"
     sudo docker compose up -d
@@ -97,6 +99,7 @@ else
     exit 1;
 fi
 
+# wait until Gitlab is running
 while true; do
     status=$(sudo docker inspect --format='{{.State.Health.Status}}' "gitlab-gitlab-1")
     if [ "$status" = "healthy" ]; then
@@ -129,6 +132,7 @@ if [ ! -f /opt/boxlab/config/gitlab_token.txt ]; then
     sudo docker exec -it gitlab-gitlab-1 gitlab-rails runner "token = User.find_by_username('root').personal_access_tokens.create(scopes: ['api', 'write_repository', 'sudo', 'admin_mode', 'create_runner'], name: 'Devops Automation setup', expires_at: 365.days.from_now); token.set_token('$(cat /opt/boxlab/config/gitlab_token.txt)'); token.save!" || { echo "error setting root token"; exit 1; }
 fi
 
+# configure Gitlab (accounts and projects etc)
 if [ ! -f /opt/boxlab/config/gitlab.txt ]; then
     cust_log "do gitlab conf"
     pip3.11 install python-gitlab==4.1.1 || { echo 'error pip install gitlab'; exit 1; }
@@ -204,6 +208,7 @@ if [ ! -f /opt/boxlab/config/pe.conf ]; then
     echo -e "\"console_admin_password\": \"$pe_pw\"" | tee -a /opt/boxlab/config/pe.conf
 fi
 
+# run puppet-enterprise-installer
 if [ ! -f /opt/boxlab/config/pesetup.txt ]; then
     # copy ssh deploy key
     sudo mkdir -pv /etc/puppetlabs/puppetserver/ssh/

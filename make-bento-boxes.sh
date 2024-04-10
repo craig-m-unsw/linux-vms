@@ -11,10 +11,11 @@ else
 fi
 
 cd bento/ || { echo 'error no src'; exit 1; }
-git checkout v3.2.0;
+git checkout v3.2.0 || { echo 'error missing tag'; exit 1; }
 
 packer init -upgrade ./packer_templates;
 
+# array of boxes to build
 declare -a templates=(
   "os_pkrvars/centos/centos-7-x86_64.pkrvars.hcl"
   "os_pkrvars/centos/centos-stream-8-x86_64.pkrvars.hcl"
@@ -27,6 +28,7 @@ declare -a templates=(
   "os_pkrvars/rockylinux/rockylinux-8-x86_64.pkrvars.hcl"
 )
 
+# build boxs
 for template in "${templates[@]}"; do
     packer build -only=virtualbox-iso.vm -var-file="$template" ./packer_templates;
 done
