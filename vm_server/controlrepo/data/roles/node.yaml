@@ -1,3 +1,8 @@
 ---
 profile::hdata::test_first: 'using roles/node.yaml'
 profile::hdata::test_combo: 'node.yaml'
+profile::base::linux::packages::add:
+  - 'vim'
+  - 'tmux'
+  - 'mc'
+profile::roledata::linux::vagrantpass: '$6$AJVmAbnoJcmOlL7m$cQsKKDahZh.apTKbgoaGLbuz.cUk./bXEIP0NGlmcXjv2iSTC1cpzNwtE1NpcuL0QvMrkXwP0TwKMq9Wg5jVz/'

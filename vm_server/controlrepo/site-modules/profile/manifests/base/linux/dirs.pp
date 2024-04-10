@@ -2,8 +2,8 @@
 # an array of folders we want on all Linux systems
 #
 class profile::base::linux::dirs (
-    $linux_base_dirs_pub = ['/var/log/opt/', '/etc/opt/cluster/', '/usr/local/share/keyrings/'],
-    $linux_base_dirs_priv = ['/opt/cluster/'],
+  Array $linux_base_dirs_pub = ['/var/log/opt/', '/etc/opt/cluster/', '/usr/local/share/keyrings/'],
+  Array $linux_base_dirs_priv = ['/opt/cluster/'],
 ) {
 
   file {

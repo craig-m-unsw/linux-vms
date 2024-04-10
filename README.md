@@ -2,6 +2,8 @@
 
 Use the [chef](https://www.chef.io/products/chef-infra) bento [project](https://github.com/chef/bento) to build the [Vagrant](https://www.vagrantup.com/) [boxes](https://app.vagrantup.com/bento), then run Puppet Enterprise to configure them.
 
+**note:** this is a learning / proof of concept project, not suitable for building your production out of.
+
 ## build
 
 Build VM box images. Some of the iso url might need updating, the Debian url changed from 'release' to 'archive'.

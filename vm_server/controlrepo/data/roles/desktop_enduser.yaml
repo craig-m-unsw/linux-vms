@@ -1,3 +1,0 @@
----
-profile::hdata::test_first: 'using roles/desktop_enduser.yaml'
-profile::hdata::test_combo: 'desktop_enduser.yaml'

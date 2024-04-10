@@ -1,3 +1,7 @@
+#
+# where to find all config data for .pp code
+# https://www.puppet.com/docs/puppet/8/hiera_config_yaml_5#hiera_config_yaml_5
+#
 ---
 version: 5
 defaults:
@@ -6,20 +10,22 @@ defaults:
 
 hierarchy:
 
-  # unique host data
+  # unique host data (hostname)
   - name: "Nodes"
     paths:
       - "nodes/%{trusted.certname}.yaml"
 
-  # computer role + OS
-  - name: "role OS ver"
-    paths:
-     - "roles/%{trusted.extensions.pp_role}/%{facts.os.name}-%{facts.os.release.major}.yaml"
+  # functional_area (trusted fact)
+  - name: "area"
+    path: "functional_area/%{::functional_area}.yaml"
 
-  # computer role
+  # role + OS
+  - name: "role OS ver"
+    path: "roles/%{trusted.extensions.pp_role}/%{facts.os.name}-%{facts.os.release.major}.yaml"
+
+  # role
   - name: "Roles"
-    paths:
-      - "roles/%{trusted.extensions.pp_role}.yaml"
+    path: "roles/%{trusted.extensions.pp_role}.yaml"
 
   # operating system version
   - name: "os ver"
@@ -30,7 +36,7 @@ hierarchy:
     path: "os/%{facts.os.family}.yaml"
 
   - name: "Per-OS kernel"
-    path: "os/%{facts.os.kernel}.yaml"
+    path: "os/%{facts.kernel}.yaml"
 
   # data for all hosts
   - name: "Common"

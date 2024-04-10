@@ -1,13 +1,18 @@
 #
-# an array of folders we want on all Linux systems
+# an array of folders we want on all Windows systems
 #
 class profile::base::windows::dirs (
-    $windows_base_dirs_pub = []
-    $windows_base_dirs_priv = []
+  $windows_base_dirs_pub = ['c:/opt/', 'c:/Users/Public/opt/'],
 ) {
 
   file {
-
+    default:
+      ensure => 'directory',
+      owner  => 'Administrators',
+      group  => 'Administrators',
+    ;
+    $windows_base_dirs_pub:
+    ;
   }
 
 }

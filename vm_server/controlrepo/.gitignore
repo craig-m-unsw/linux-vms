@@ -1,2 +1,3 @@
-# Puppet controlrepo git ignore
-modules/
+# git ignore
+local/*
+!local/.gitkeep

@@ -2,7 +2,7 @@
 # each role should follow a hierarchy using common patterns first,
 # down to specific single use blocks of code being least preferable
 #
-class role::example_role {
+class role::server_example {
 
   # common code (write more of)
   include profile::base
@@ -11,6 +11,6 @@ class role::example_role {
   include profile::infofile
   
   # specific code (write less of)
-  include profile::role_code::node::misc
+  include profile::role_code::server_example::misc
 
 }

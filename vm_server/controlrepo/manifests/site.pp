@@ -27,21 +27,20 @@ File { backup => false }
 
 node default {
 
-    # trusted role
-    if $trusted['extensions']['pp_role'] {
-        include "role::${trusted['extensions']['pp_role']}"
-    }
-
     # Puppet enterprise
     $hosts_server_puppet = ['puppet.local', 'puppet.mylocal', 'puppet.internal']
     if $trusted['certname'] in $hosts_server_puppet {
         include 'role::server_puppet'
     }
 
-    # windows hosts (temp)
-    $hosts_ms_windows = ['windows11.local', 'windows11', 'windows11.mylocal']
-    if $trusted['certname'] in $hosts_ms_windows {
-        include 'role::node'
+    # functional area
+    if $trusted['extensions']['pp_area'] {
+        $functional_area = $trusted['extensions']['pp_area']
+    }
+
+    # trusted role
+    if $trusted['extensions']['pp_role'] {
+        include "role::${trusted['extensions']['pp_role']}"
     }
 
 }

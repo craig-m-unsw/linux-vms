@@ -1,0 +1,3 @@
+This is a <%= $facts['os']['family'] %> machine running version <%= $facts['os']['release']['full'] %>
+
+the machine has <%= $facts['processors']['count'] -%> cpus

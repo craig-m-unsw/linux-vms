@@ -1,11 +1,6 @@
+#
+# _all_ hosts get this data
+#
 ---
 profile::hdata::test_first: 'common.yaml'
-profile::hdata::test_combo: 'common.yaml'
-# remove non-puppet files from /etc/sudoers.d/
-profile::base::linux::auth::purge_unmanaged_sudo: true
-# put this information into /etc/sudoers.d/<file>
-profile::base::linux::auth::sudoers:
-  wheelgroup:
-    content: "%wheel ALL=(ALL) ALL"
-  vagrant:
-    content: "Defaults:vagrant !requiretty\n%vagrant ALL=(ALL) NOPASSWD: ALL"
+profile::hdata::test_combo: 'common.yaml (all hostz)'

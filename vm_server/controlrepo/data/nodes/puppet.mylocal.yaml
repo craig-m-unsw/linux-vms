@@ -1,6 +1,12 @@
 ---
 profile::hdata::test_first: 'using nodes/puppet.mylocal.yaml'
 profile::hdata::test_combo: 'puppet.mylocal.yaml'
+base::linux::packages::add:
+  - 'vim'
+  - 'tmux'
+  - 'nmap'
+  - 'ncdu'
+  - 'mkpasswd'
 # tuning data
 puppet_enterprise::profile::database::shared_buffers: 1024MB
 puppet_enterprise::puppetdb::command_processing_threads: 1

@@ -26,6 +26,7 @@ declare -a templates=(
   "os_pkrvars/fedora/fedora-37-x86_64.pkrvars.hcl"
   "os_pkrvars/rockylinux/rockylinux-9-x86_64.pkrvars.hcl"
   "os_pkrvars/rockylinux/rockylinux-8-x86_64.pkrvars.hcl"
+  "os_pkrvars/windows/windows-11-x86_64.pkrvars.hcl"
 )
 
 # build boxs

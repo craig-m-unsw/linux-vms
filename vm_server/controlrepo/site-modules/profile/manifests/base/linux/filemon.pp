@@ -5,13 +5,13 @@
 # lookup this array, or use this default if hiera data is missing
 #
 class profile::base::linux::filemon (
-  $linux_filemon_default = ['/etc/passwd', '/etc/group', '/etc/shadow', '/etc/gshadow',],
-  $linux_filemon = lookup('profile::base::linux::filemon', Array, unique, $linux_filemon_default),
+  Array $linux_filemon_default = ['/etc/passwd', '/etc/group', '/etc/shadow', '/etc/gshadow',],
+  Array $linux_filemon = lookup('profile::base::linux::filemon', Array, unique, $linux_filemon_default),
 ) {
 
   file {
     default:
-      audit  => all,
+      audit => all,
     ;
     $linux_filemon:
     ;

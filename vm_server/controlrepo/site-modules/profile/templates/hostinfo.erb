@@ -1,6 +1,6 @@
-<%# Write out info to file on host. %># ------------------------
-# puppet managed file
-# ------------------------
+<%# Write out info to file on host. %># ------------------------------------------------
+# puppet managed file                            #
+# ------------------------------------------------
 
 ServerName            <%= @fqdn %>
 hostname              <%= @hostname %>
@@ -9,11 +9,11 @@ clientcert:           <%= @clientcert %>
 Role:                 <%= @my_role %>
 kernel:               <%= @kernel %>
 puppet:               <%= @clientversion %>
-agent_specified_environment <%= @agent_specified_environment %>
+        $hdata_fixed        <%= @hdata_fixed %>
+first:  hdata::test_first:  <%= @hdata_string %>
+all:    hdata::test_combo:  <%= @hdata_combo %>
 
-top of hierachy hdata::test_first:  <%= @hdata_string %>
-
-all data        hdata::test_combo:  <%= @hdata_combo %>
+env:                        <%= @hdata_env %>
 
 # ------------------------ eof ------------------------
 <%# foobar %>

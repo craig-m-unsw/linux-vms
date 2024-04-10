@@ -35,6 +35,7 @@ start_timer() {
 
 start_timer
 
+# time how long this script runs for
 end_timer() {
     end_time=$(date +%s)
     total_time=$((end_time - start_time))

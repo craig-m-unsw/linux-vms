@@ -1,3 +1,0 @@
----
-profile::hdata::test_first: 'using roles/server_puppet.yaml'
-profile::hdata::test_combo: 'server_puppet.yaml'

@@ -1,0 +1,50 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "puppet_code",
+            "type": "shell",
+            "command": "/opt/puppetlabs/bin/puppet-code",
+            "args": [
+                "deploy",
+                "--all",
+                "--wait"
+            ],
+            "problemMatcher": {
+                "owner": "custom",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "\\{\"status\":\\s*\"(?!complete)[^\"]*\"\\}",
+                    "message": "Deployment failed or incomplete.",
+                    "severity": "error"
+                }
+            }
+        },
+        {
+            "label": "puppet_run_prod",
+            "type": "shell",
+            "command": "/usr/local/bin/puppet",
+            "args": [
+                "job",
+                "run",
+                "--query",
+                "nodes { catalog_environment = \"production\" }"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "lint_control_repo",
+            "type": "shell",
+            "command": "/usr/local/bin/puppet-lint",
+            "args": [
+                "/home/vagrant/controlrepo/",
+                "--no-documentation-check",
+                "--no-trailing_whitespace-check"
+            ],
+            "problemMatcher": []
+        }
+        
+    ]
+}
