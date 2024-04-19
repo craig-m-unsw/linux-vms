@@ -9,7 +9,7 @@ class role::server_example {
 
   # help with debugs
   include profile::infofile
-  
+
   # specific code (write less of)
   include profile::role_code::server_example::misc
 

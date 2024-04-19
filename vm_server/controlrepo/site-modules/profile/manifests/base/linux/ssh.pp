@@ -42,10 +42,10 @@ class profile::base::linux::ssh (
   }
 
   file { '/etc/ssh/sshd_config.d/':
-      ensure  => 'directory',
-      purge   => true,
-      noop    => true,
-      recurse => true,
+    ensure  => 'directory',
+    purge   => true,
+    noop    => true,
+    recurse => true,
   }
 
 }

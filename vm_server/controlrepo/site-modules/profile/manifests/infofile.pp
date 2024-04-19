@@ -6,7 +6,7 @@ class profile::infofile (
   String $hdata_string = lookup('profile::hdata::test_first', String, first, 'defaultdata'),
   Array $hdata_combo  = lookup('profile::hdata::test_combo', undef, unique, 'defaultdata'),
   String $hdata_fixed = 'foobar123',
-  String $hdata_env = $server_facts['environment']
+  String $hdata_env = $server_facts['environment'],
 ) {
 
   # look up role if exists

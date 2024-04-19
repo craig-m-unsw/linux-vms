@@ -1,7 +1,7 @@
 # change puppet_wheel users in /etc/group
 #
 class profile::base::linux::auth::wheel_group (
-  Array $wheel_group_user = ['test11', 'test2', 'test33'],
+  Array  $wheel_group_user = ['test11', 'test2', 'test33'],
   String $wheel_group_name = 'puppet_wheel',
   String $wheel_group_gid  = '1111',
 ) {
@@ -17,7 +17,7 @@ class profile::base::linux::auth::wheel_group (
     path               => '/etc/group',
     line               => "${$wheel_group_name}:x:${wheel_group_gid}:${wheel_users_string}",
     match              => "${$wheel_group_name}:x:\d+:",
-    append_on_no_match => false
+    append_on_no_match => false,
   }
 
 }

@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "puppet_code",
+            "label": "deploy_code",
             "type": "shell",
             "command": "/opt/puppetlabs/bin/puppet-code",
             "args": [
@@ -23,7 +23,7 @@
             }
         },
         {
-            "label": "puppet_run_prod",
+            "label": "puppet_run_production",
             "type": "shell",
             "command": "/usr/local/bin/puppet",
             "args": [
@@ -35,7 +35,7 @@
             "problemMatcher": []
         },
         {
-            "label": "lint_control_repo",
+            "label": "lint_code",
             "type": "shell",
             "command": "/usr/local/bin/puppet-lint",
             "args": [

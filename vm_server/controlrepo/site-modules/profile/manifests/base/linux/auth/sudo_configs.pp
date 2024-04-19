@@ -1,36 +1,53 @@
 #
-# lookup a hash of data from hiera
+# sudo configuration for linux system.
+#
+#
+# example hiera data to supply class below
+#
+# profile::base::linux::auth::purge_unmanaged_sudo: true
+# profile::base::linux::auth::sudoers:
+#   - wheelgroup:
+#       content: |
+#         %wheel ALL=(ALL) ALL"
+#   - vagrant:
+#       content: |
+#         Defaults:vagrant !requiretty
+#         %vagrant ALL=(ALL) NOPASSWD: ALL
+#
 #
 class profile::base::linux::auth::sudo_configs (
-  $sudo_info       = lookup('profile::base::linux::auth::sudoers', {}),
-  $sudo_info_purge = lookup('profile::base::linux::auth::purge_unmanaged_sudo', Boolean, first, false),
+  Boolean $sudo_info_purge = lookup('profile::base::linux::auth::purge_unmanaged_sudo', Boolean, first, false),
+  Array $sudoers_data_array = lookup('profile::base::linux::auth::sudoers', Array, unique, []),
+  String $sudo_package_state = 'installed',
 ) {
 
-  # install sudo (https://www.sudo.ws/)
   package { 'sudo':
-    ensure => installed,
+    ensure => $sudo_package_state,
   }
 
-  # remove non-puppet files from sudoers.d folder for security
   file { '/etc/sudoers.d/':
     ensure  => 'directory',
     purge   => $sudo_info_purge,
     recurse => true,
   }
 
-  # iterate over sudo information from hiera
-  $sudo_info.each |$user, $sudo_line| {
-    $sudoers_file_path    = "/etc/sudoers.d/${user}"
-    $sudoers_file_content = $sudo_line[content]
+  $sudoers_data_array.each |$sudo_entry| {
+    if $sudo_entry.keys.size != 1 {
+      fail("Invalid sudoers entry: ${sudo_entry}. Each entry should contain only one key-value pair.")
+    }
 
-    file { $sudoers_file_path:
-      ensure  => file,
-      content => "${sudoers_file_content}\n",
-      mode    => '0440'
+    $user = $sudo_entry.keys[0]
+    $content = $sudo_entry[$user]['content']
+
+    $sudoers_file = "/etc/sudoers.d/${user}"
+
+    file { $sudoers_file:
+      ensure  => 'file',
+      content => "# Puppet managed\n${content}\n",
+      mode    => '0440',
     }
   }
 
-  # validate and monitor /etc/sudoers for changes
   file { '/etc/sudoers':
     ensure       => 'present',
     validate_cmd => '/sbin/visudo -cf %',

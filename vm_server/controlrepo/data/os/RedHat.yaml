@@ -1,3 +1,3 @@
 ---
 profile::hdata::test_first: 'using os/RedHat.yaml'
-profile::hdata::test_combo: 'RedHat.yaml'
+profile::hdata::test_combo: 'os/RedHat.yaml'

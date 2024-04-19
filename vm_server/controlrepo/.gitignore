@@ -1,3 +1,21 @@
-# git ignore
+#
+# git ignore for Puppet control repo
+#
 local/*
 !local/.gitkeep
+# keep out
+**.log
+**.rpm
+**.deb
+**.zip
+**.tar.gz
+# no
+**.sh
+**.ps1
+**.py
+**.rb
+# limit
+scripts/*
+!scripts/config_version-r10k.rb
+!scripts/config_version-rugged.rb
+!scripts/config_version.sh

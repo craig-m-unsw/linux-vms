@@ -7,6 +7,15 @@ base::linux::packages::add:
   - 'nmap'
   - 'ncdu'
   - 'mkpasswd'
+# put this information into /etc/sudoers.d/<file>
+profile::base::linux::auth::sudoers:
+  - wheelgroup:
+      content: |
+        %wheel ALL=(ALL) ALL
+  - vagrants:
+      content: |
+        Defaults:vagrant !requiretty
+        vagrants ALL=(ALL) NOPASSWD: ALL
 # tuning data
 puppet_enterprise::profile::database::shared_buffers: 1024MB
 puppet_enterprise::puppetdb::command_processing_threads: 1

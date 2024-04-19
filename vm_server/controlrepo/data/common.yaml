@@ -1,5 +1,5 @@
 #
-# _all_ hosts get this data
+# _all_ puppet nodes get this data
 #
 ---
 profile::hdata::test_first: 'common.yaml'

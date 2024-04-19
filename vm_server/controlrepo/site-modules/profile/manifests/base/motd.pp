@@ -1,3 +1,6 @@
+#
+# set the message of the day
+#
 class profile::base::motd (
   String $motd_content = 'Boxlab VM',
 ) {

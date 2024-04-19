@@ -1,6 +1,6 @@
 ---
 profile::hdata::test_first: 'using os/Linux.yaml'
-profile::hdata::test_combo: 'Linux.yaml'
+profile::hdata::test_combo: 'os/Linux.yaml'
 profile::base::linux::filemon:
   - '/etc/passwd'
   - '/etc/group'
@@ -10,7 +10,10 @@ profile::base::linux::filemon:
 profile::base::linux::auth::purge_unmanaged_sudo: true
 # put this information into /etc/sudoers.d/<file>
 profile::base::linux::auth::sudoers:
-  wheelgroup:
-    content: "# puppet managed\n%wheel ALL=(ALL) ALL"
-  vagrant:
-    content: "# puppet managed\nDefaults:vagrant !requiretty\n%vagrant ALL=(ALL) NOPASSWD: ALL"
+  - wheelgroup:
+      content: |
+        %wheel ALL=(ALL) ALL
+  - vagrant:
+      content: |
+        Defaults:vagrant !requiretty
+        %vagrant ALL=(ALL) NOPASSWD: ALL

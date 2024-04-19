@@ -27,6 +27,8 @@ File { backup => false }
 
 node default {
 
+    include stdlib
+
     # Puppet enterprise
     $hosts_server_puppet = ['puppet.local', 'puppet.mylocal', 'puppet.internal']
     if $trusted['certname'] in $hosts_server_puppet {

@@ -2,7 +2,7 @@
 # base code for all hosts
 #
 class profile::base {
-
+  include profile::base::agent_puppet
   if $facts['kernel'] == 'Linux' {
     include cron
     include profile::base::motd
@@ -15,7 +15,6 @@ class profile::base {
     include profile::base::linux::packages_os
     include profile::base::linux::hardening::cron
     include profile::base::linux::hardening::netproto
-
     # distro family specifics
     case $facts['os']['name'] {
       'RedHat', 'CentOS', 'Rocky': {
@@ -28,12 +27,9 @@ class profile::base {
       default: {
       }
     }
-
   }
-
   if $facts['kernel'] == 'Windows' {
     include profile::base::windows::dirs
     include profile::base::windows::filemon
   }
-
 }

@@ -1,6 +1,11 @@
-# root user configs
+# root account settings
 #
-class profile::base::linux::auth::root_auth {
+# todo: lookup root password and lock if no entry found
+#
+class profile::base::linux::auth::root_auth (
+  # remove non-puppet files under /root/.ssh/ ?
+  Boolean $root_ssh_purge_file = true,
+) {
 
   # lock root user account, read "man shadow" for details
   # access via regular user with sudo
@@ -28,7 +33,7 @@ class profile::base::linux::auth::root_auth {
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
-    purge   => true,
+    purge   => $root_ssh_purge_file,
     recurse => true,
   }
 
