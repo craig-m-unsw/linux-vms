@@ -1,4 +1,8 @@
-<%# Write out info to file on host. %># ------------------------------------------------
+<%#
+
+Write out info/debug info to host
+
+%># ------------------------------------------------
 # puppet managed file                            #
 # ------------------------------------------------
 
@@ -10,6 +14,7 @@ Role:                 <%= @my_role %>
 kernel:               <%= @kernel %>
 puppet:               <%= @clientversion %>
         $hdata_fixed        <%= @hdata_fixed %>
+        $hdata_string_empty <%= @hdata_string_empty %>
 first:  hdata::test_first:  <%= @hdata_string %>
 all:    hdata::test_combo:  <%= @hdata_combo %>
 

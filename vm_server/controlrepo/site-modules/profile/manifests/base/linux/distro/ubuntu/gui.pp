@@ -2,7 +2,8 @@
 # create the fact in /opt/puppetlabs/facter/facts.d/custom_facts.yaml
 # with content like this:
 #
-# desktop_environment: gnome
+#   ---
+#   desktop_environment: gnome
 #
 class profile::base::linux::distro::ubuntu::gui (
   String $desktop_environment = $facts['desktop_environment']

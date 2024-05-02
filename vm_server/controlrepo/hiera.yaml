@@ -20,6 +20,7 @@ hierarchy:
     path: "functional_area/%{::functional_area}.yaml"
 
   # role + OS
+  # one role might be deployed over multiple OS releases
   - name: "role OS ver"
     path: "roles/%{trusted.extensions.pp_role}/%{facts.os.name}-%{facts.os.release.major}.yaml"
 
@@ -32,9 +33,11 @@ hierarchy:
     path: "os/%{facts.os.name}/%{facts.os.release.major}.yaml"
 
   # operating system family
+  # eg RedHat or Ubuntu?
   - name: "Per-OS family defaults"
     path: "os/%{facts.os.family}.yaml"
 
+  # MacOS / Windows / Linux / BSD etc?
   - name: "Per-OS kernel"
     path: "os/%{facts.kernel}.yaml"
 

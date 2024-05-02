@@ -2,8 +2,8 @@
 # Use default distro package manager to manage packages.
 #
 class profile::base::linux::packages_os (
-  Array $packages_adding   = lookup('profile::base::linux::packages::add', {'default_value' => []}),
-  Array $packages_removing = lookup('profile::base::linux::packages::remove', {'default_value' => []}),
+  Array $packages_adding   = lookup('profile::base::linux::packages::add', Array, unique, []),
+  Array $packages_removing = lookup('profile::base::linux::packages::remove', Array, unique, []),
 ) {
 
   # Install packages specified for adding

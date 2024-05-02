@@ -1,11 +1,15 @@
 #
+# infofile - for testing, help make sense of puppet hosts
+#
 # https://www.puppet.com/docs/puppet/8/lang_template_erb
 # https://www.puppet.com/docs/puppet/8/lang_template_epp
 #
 class profile::infofile (
+  String $hdata_fixed = 'foobar1234',
+  # lookup data
   String $hdata_string = lookup('profile::hdata::test_first', String, first, 'defaultdata'),
-  Array $hdata_combo  = lookup('profile::hdata::test_combo', undef, unique, 'defaultdata'),
-  String $hdata_fixed = 'foobar123',
+  String $hdata_string_empty = lookup('profile::hdata::empty', String, first, 'defaultdata'),
+  Array $hdata_combo = lookup('profile::hdata::test_combo', undef, unique, 'defaultdata'),
   String $hdata_env = $server_facts['environment'],
 ) {
 
@@ -22,25 +26,21 @@ class profile::infofile (
     $functional_area = 'none'
   }
 
-  if $facts['kernel'] == 'Windows' {
-
-    file { 'c:\hostinfo.txt':
-      ensure  => file,
-      content => template('profile/hostinfo.erb'),
+    # windows
+    if $facts['kernel'] == 'Windows' {
+      file { 'c:\hostinfo.txt':
+        ensure  => file,
+        content => template('profile/hostinfo.erb'),
+      }
+    } else {
+      # *nix based OS
+      file { '/etc/opt/hostinfo.txt':
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template('profile/hostinfo.erb'),
+      }
     }
-
-  } else {
-
-    # *nix based OS
-
-    file { '/etc/opt/hostinfo.txt':
-      ensure  => file,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template('profile/hostinfo.erb'),
-    }
-
-  }
 
 }

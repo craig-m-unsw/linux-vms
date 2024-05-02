@@ -1,50 +1,43 @@
 #
 # sudo configuration for linux system.
 #
-#
-# example hiera data to supply class below
-#
-# profile::base::linux::auth::purge_unmanaged_sudo: true
-# profile::base::linux::auth::sudoers:
-#   - wheelgroup:
-#       content: |
-#         %wheel ALL=(ALL) ALL"
-#   - vagrant:
-#       content: |
-#         Defaults:vagrant !requiretty
-#         %vagrant ALL=(ALL) NOPASSWD: ALL
-#
+# todo: fix error when duplicate data found in hiera
 #
 class profile::base::linux::auth::sudo_configs (
   Boolean $sudo_info_purge = lookup('profile::base::linux::auth::purge_unmanaged_sudo', Boolean, first, false),
-  Array $sudoers_data_array = lookup('profile::base::linux::auth::sudoers', Array, unique, []),
   String $sudo_package_state = 'installed',
+  Boolean $sudo_info_purge_noop = false,
+  # Lookup the data from Hiera using a deep merge strategy
+  Array $auth_sudoers = lookup('profile::base::linux::auth::sudoers', Array, unique, []),
 ) {
 
   package { 'sudo':
     ensure => $sudo_package_state,
   }
 
+  # delete non-puppet files from here?
   file { '/etc/sudoers.d/':
     ensure  => 'directory',
     purge   => $sudo_info_purge,
+    noop    => $sudo_info_purge_noop,
     recurse => true,
   }
 
-  $sudoers_data_array.each |$sudo_entry| {
-    if $sudo_entry.keys.size != 1 {
-      fail("Invalid sudoers entry: ${sudo_entry}. Each entry should contain only one key-value pair.")
-    }
-
-    $user = $sudo_entry.keys[0]
-    $content = $sudo_entry[$user]['content']
-
-    $sudoers_file = "/etc/sudoers.d/${user}"
-
-    file { $sudoers_file:
-      ensure  => 'file',
-      content => "# Puppet managed\n${content}\n",
-      mode    => '0440',
+  # Iterate over each entry in the auth_sudoers array
+  $auth_sudoers.each |$entry| {
+    # Check that each entry is a hash (not an integer or other type)
+    if $entry.is_a(Hash) {
+      # Iterate over each key-value pair in the hash
+      $entry.each |$key, $value| {
+        # Create a file in /etc/sudoers.d/ for each key
+        file { "/etc/sudoers.d/${key}":
+          ensure  => 'file',
+          content => "${value}\n",
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0440',
+        }
+      }
     }
   }
 

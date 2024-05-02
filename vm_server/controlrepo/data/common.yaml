@@ -3,4 +3,4 @@
 #
 ---
 profile::hdata::test_first: 'common.yaml'
-profile::hdata::test_combo: 'common.yaml (all hostz)'
+profile::hdata::test_combo: 'common.yaml (all hosts)'

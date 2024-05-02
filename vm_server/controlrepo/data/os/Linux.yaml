@@ -1,6 +1,10 @@
 ---
 profile::hdata::test_first: 'using os/Linux.yaml'
 profile::hdata::test_combo: 'os/Linux.yaml'
+profile::base::linux::packages::add:
+  - 'vim'
+  - 'tmux'
+  - 'yara'
 profile::base::linux::filemon:
   - '/etc/passwd'
   - '/etc/group'
@@ -10,10 +14,5 @@ profile::base::linux::filemon:
 profile::base::linux::auth::purge_unmanaged_sudo: true
 # put this information into /etc/sudoers.d/<file>
 profile::base::linux::auth::sudoers:
-  - wheelgroup:
-      content: |
-        %wheel ALL=(ALL) ALL
-  - vagrant:
-      content: |
-        Defaults:vagrant !requiretty
-        %vagrant ALL=(ALL) NOPASSWD: ALL
+  - wheelgroup: "%wheel ALL=(ALL) ALL"
+  - vagrant: "# data/os/linux\nDefaults:vagrant !requiretty\n%vagrant ALL=(ALL) NOPASSWD: ALL"

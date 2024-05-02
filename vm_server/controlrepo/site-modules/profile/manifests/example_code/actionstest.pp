@@ -1,8 +1,8 @@
 #
-# test code
+# test code: run x4 command only x1 (idempotency)
 #
 class profile::example_code::actionstest (
-  String $foobar = 'test',
+  String $testfile = '/etc/opt/testrun.txt',
 ) {
 
   notify { 'resource title':
@@ -12,7 +12,7 @@ class profile::example_code::actionstest (
   exec { 'check_file':
     command     => '/bin/true',
     path        => ['/usr/bin', '/usr', '/usr/sbin'],
-    unless      => 'test ! -e /etc/opt/testrun.txt',
+    unless      => "test ! -e ${testfile}",
     refreshonly => true,
   }
 
@@ -24,23 +24,23 @@ class profile::example_code::actionstest (
     }
 
     exec { 'test_run_1':
-      command     => 'echo foobar1 | logger',
+      command     => 'echo command-foo-1 | logger',
       path        => ['/usr/bin', '/usr', '/usr/sbin'],
       refreshonly => true,
     } -> exec { 'test_run_2':
-      command     => 'echo foobar2 | logger',
+      command     => 'echo ommand-foo-2 | logger',
       path        => ['/usr/bin', '/usr', '/usr/sbin'],
       refreshonly => true,
     } -> exec { 'test_run_3':
-      command     => 'echo foobar3 | logger',
+      command     => 'echo ommand-foo-3 | logger',
       path        => ['/usr/bin', '/usr', '/usr/sbin'],
       refreshonly => true,
     } -> exec { 'test_run_4':
-      command     => 'echo foobar4 | logger',
+      command     => 'echo ommand-foo-4 | logger',
       path        => ['/usr/bin', '/usr', '/usr/sbin'],
       refreshonly => true,
-    } -> exec { 'test_run_5':
-      command     => 'touch /etc/opt/testrun1.txt',
+    } -> exec { 'make_test_file':
+      command     => "touch ${testfile}",
       path        => ['/usr/bin', '/usr', '/usr/sbin'],
       refreshonly => true,
     }

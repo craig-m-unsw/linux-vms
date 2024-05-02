@@ -5,6 +5,11 @@
 class profile::base::linux::auth::root_auth (
   # remove non-puppet files under /root/.ssh/ ?
   Boolean $root_ssh_purge_file = true,
+  Boolean $root_ssh_purge_file_noop = false,
+  # make these folders
+  Array $root_homedir_folder = ['/root/', '/root/.config/', '/root/temp/', '/root/scripts/'],
+  # monitor these root files
+  Array $root_file_mon = ['/root/.bashrc', '/root/.profile',],
 ) {
 
   # lock root user account, read "man shadow" for details
@@ -15,30 +20,28 @@ class profile::base::linux::auth::root_auth (
   }
 
   # home dir folders
-  $root_homedir_folder = ['/root/', '/root/.config/', '/root/temp/', '/root/scripts/']
   file {
     default:
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0700',
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0700',
     ;
     $root_homedir_folder:
     ;
   }
 
-  # remove non-puppet files
+  # root ssh files
   file { '/root/.ssh/':
     ensure  => 'directory',
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
-    purge   => $root_ssh_purge_file,
     recurse => true,
+    purge   => $root_ssh_purge_file,
+    noop    => $root_ssh_purge_file_noop,
   }
 
-  # monitor for changes
-  $root_file_mon = ['/root/.bashrc', '/root/.profile',]
   file {
     default:
       audit => all,
