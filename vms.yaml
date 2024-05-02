@@ -6,7 +6,7 @@
   box: bento/builds/rockylinux-9.3-x86_64.virtualbox.box
   hostname: puppet.mylocal
   ip: 192.168.60.13
-  ram: 12240
+  ram: 14240
   cpu: 8
   fshare: vm_server/
 

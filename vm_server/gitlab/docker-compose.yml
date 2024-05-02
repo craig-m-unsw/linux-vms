@@ -1,5 +1,7 @@
+#
 # docker compose for Gitlab
 # https://docs.gitlab.com/ee/install/docker.html
+#
 version: "3"
 services:
   gitlab:

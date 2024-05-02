@@ -28,7 +28,6 @@ def download_file(url, filename):
         print(f"Failed to download {url}: {e}")
         sys.exit(1)
 
-
 def main():
     parser = argparse.ArgumentParser(description='Download files from specified URLs.')
     parser.add_argument('--download_folder', required=True, help='Folder to download files into')
