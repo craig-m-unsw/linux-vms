@@ -1,6 +1,6 @@
 ---
-profile::hdata::test_first: 'using os/Ubuntu/22.04.yaml'
-profile::hdata::test_combo: '22.04.yaml'
-# put this information into /etc/sudoers.d/<file>
-profile::base::linux::auth::sudoers:
-  - wheelgroup: "%wheel ALL=(ALL) ALL"
+profile::infofile::test_first: 'using os/Ubuntu/22.04.yaml'
+profile::infofile::test_combo: '22.04.yaml'
+profile::base::linux::auth::sudo_configs:
+  'wheelgroup':
+      'content': '%wheel ALL=(ALL) ALL'

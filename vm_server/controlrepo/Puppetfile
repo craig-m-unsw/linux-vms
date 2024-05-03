@@ -1,4 +1,5 @@
 # Puppetfile
+
 forge 'https://forge.puppet.com'
 
 # Modules to use from the Puppet Forge

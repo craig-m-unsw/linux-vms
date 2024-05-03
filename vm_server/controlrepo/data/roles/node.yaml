@@ -1,11 +1,17 @@
 ---
-profile::hdata::test_first: 'using roles/node.yaml'
-profile::hdata::test_combo: 'node.yaml'
+#
+profile::infofile::test_first: 'using roles/node.yaml'
+#
+profile::infofile::test_combo: 'node.yaml'
+#
 profile::base::linux::packages::add:
   - 'vim'
   - 'tmux'
   - 'mc'
+#
 profile::roledata::linux::vagrantpass: '$6$AJVmAbnoJcmOlL7m$cQsKKDahZh.apTKbgoaGLbuz.cUk./bXEIP0NGlmcXjv2iSTC1cpzNwtE1NpcuL0QvMrkXwP0TwKMq9Wg5jVz/'
+#
 # put this information into /etc/sudoers.d/<file>
-profile::base::linux::auth::sudoers:
-  - foobar: "%foobar ALL=(ALL) ALL"
+profile::base::linux::auth::sudo_configs:
+  'foobar':
+      'content': '%foobar ALL=(ALL) ALL'

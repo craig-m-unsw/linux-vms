@@ -2,5 +2,7 @@
 # _all_ puppet nodes get this data
 #
 ---
-profile::hdata::test_first: 'common.yaml'
-profile::hdata::test_combo: 'common.yaml (all hosts)'
+#
+profile::infofile::test_first: 'common.yaml'
+#
+profile::infofile::test_combo: 'common.yaml (all host)'

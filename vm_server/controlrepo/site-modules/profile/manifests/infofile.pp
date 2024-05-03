@@ -5,12 +5,14 @@
 # https://www.puppet.com/docs/puppet/8/lang_template_epp
 #
 class profile::infofile (
-  String $hdata_fixed = 'foobar1234',
+  String  $infofile_fixed        = 'foobar1234',
+  # write hostinfo.txt y/n
+  Boolean $infofile_enabled      = lookup('profile::infofile::enabled', Boolean, first, true),
   # lookup data
-  String $hdata_string = lookup('profile::hdata::test_first', String, first, 'defaultdata'),
-  String $hdata_string_empty = lookup('profile::hdata::empty', String, first, 'defaultdata'),
-  Array $hdata_combo = lookup('profile::hdata::test_combo', undef, unique, 'defaultdata'),
-  String $hdata_env = $server_facts['environment'],
+  String  $infofile_env          = $server_facts['environment'],
+  String  $infofile_string       = lookup('profile::infofile::test_first', String, first, 'defaultdata'),
+  String  $infofile_string_empty = lookup('profile::infofile::empty', String, first, 'defaultdata'),
+  Array   $infofile_combo        = lookup('profile::infofile::test_combo', undef, unique, 'defaultdata'),
 ) {
 
   # look up role if exists
@@ -26,6 +28,7 @@ class profile::infofile (
     $functional_area = 'none'
   }
 
+  if $infofile_enabled {
     # windows
     if $facts['kernel'] == 'Windows' {
       file { 'c:\hostinfo.txt':
@@ -42,5 +45,6 @@ class profile::infofile (
         content => template('profile/hostinfo.erb'),
       }
     }
+  }
 
 }

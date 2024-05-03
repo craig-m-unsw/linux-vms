@@ -127,6 +127,7 @@ if [ ! -f /opt/boxlab/config/pekey001.ed25519 ]; then ssh-keygen -t ed25519 -P "
 
 if [ ! -f /opt/boxlab/config/gitlab_token.txt ]; then
     cust_log "set a PAT for root then use it for setup script"
+    # generate token for root user
     myrootpatgl="glpat-$(pwgen -n1 20)"
     echo $myrootpatgl > /opt/boxlab/config/gitlab_token.txt
     chmod 600 -v /opt/boxlab/config/gitlab_token.txt
@@ -142,12 +143,14 @@ if [ ! -f /opt/boxlab/config/gitlab.txt ]; then
     touch /opt/boxlab/config/gitlab.txt
 fi
 
+# configure git user
 if [ ! -f ~/.gitconfig ]; then
     cust_log "do git config"
     git config --global user.name "vagrant"
     git config --global user.email "vagrant@localhost"
 fi
 
+# ssh config for gitlab
 if [ ! -f /home/vagrant/.ssh/config ]; then
     cust_log "write ssh config"
 cat << EOF > /home/vagrant/.ssh/config
@@ -228,13 +231,14 @@ else
     cust_log "PE alredy running"
 fi
 
-if [ ! -f /opt/boxlab/config/eyaml.log ]; then
+if [ ! -f /opt/boxlab/config/eyaml_install.log ]; then
     cust_log "installing eyaml"
-    sudo /opt/puppetlabs/bin/puppetserver gem install hiera-eyaml >> /opt/boxlab/config/eyaml.log || { echo 'failed to install eyaml'; exit 1; }
+    sudo /opt/puppetlabs/bin/puppetserver gem install hiera-eyaml >> /opt/boxlab/config/eyaml_install.log || { echo 'failed to install eyaml'; exit 1; }
 else
     cust_log "eyaml already installed"
 fi
 
+# show PE status
 sudo /usr/local/bin/puppet infrastructure status
 
 if [ ! -f /home/vagrant/.puppetlabs/token ]; then

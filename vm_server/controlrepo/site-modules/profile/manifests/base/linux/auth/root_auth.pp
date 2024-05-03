@@ -1,10 +1,9 @@
 # root account settings
 #
-# todo: lookup root password and lock if no entry found
 #
 class profile::base::linux::auth::root_auth (
   # remove non-puppet files under /root/.ssh/ ?
-  Boolean $root_ssh_purge_file = true,
+  Boolean $root_ssh_purge_file      = true,
   Boolean $root_ssh_purge_file_noop = false,
   # make these folders
   Array $root_homedir_folder = ['/root/', '/root/.config/', '/root/temp/', '/root/scripts/'],

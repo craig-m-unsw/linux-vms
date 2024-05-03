@@ -1,14 +1,14 @@
+# sudo_configs.pp
 #
-# sudo configuration for linux system.
-#
-# todo: fix error when duplicate data found in hiera
+# write content to /etc/sudoers.d/<entry>
 #
 class profile::base::linux::auth::sudo_configs (
-  Boolean $sudo_info_purge = lookup('profile::base::linux::auth::purge_unmanaged_sudo', Boolean, first, false),
-  String $sudo_package_state = 'installed',
-  Boolean $sudo_info_purge_noop = false,
-  # Lookup the data from Hiera using a deep merge strategy
-  Array $auth_sudoers = lookup('profile::base::linux::auth::sudoers', Array, unique, []),
+  Boolean $sudo_info_purge      = lookup('profile::base::linux::auth::purge_unmanaged_sudo', Boolean, first, false),
+  String  $sudo_package_state   = 'installed',
+  Boolean $sudo_info_purge_noop = lookup('profile::base::linux::auth::purge_unmanaged_sudo_noop', { 'default_value' => false }),
+  #Boolean $sudo_info_purge_noop = false,
+  # lookup all info
+  Hash    $sudoers_data         = lookup('profile::base::linux::auth::sudo_configs', Hash, 'deep', {}),
 ) {
 
   package { 'sudo':
@@ -23,21 +23,13 @@ class profile::base::linux::auth::sudo_configs (
     recurse => true,
   }
 
-  # Iterate over each entry in the auth_sudoers array
-  $auth_sudoers.each |$entry| {
-    # Check that each entry is a hash (not an integer or other type)
-    if $entry.is_a(Hash) {
-      # Iterate over each key-value pair in the hash
-      $entry.each |$key, $value| {
-        # Create a file in /etc/sudoers.d/ for each key
-        file { "/etc/sudoers.d/${key}":
-          ensure  => 'file',
-          content => "${value}\n",
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0440',
-        }
-      }
+  $sudoers_data.each |$key, $value| {
+    file { "/etc/sudoers.d/${key}":
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0440',
+      content => inline_template($value['content']),
     }
   }
 

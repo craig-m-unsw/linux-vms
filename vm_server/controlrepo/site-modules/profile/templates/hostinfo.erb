@@ -13,12 +13,12 @@ clientcert:           <%= @clientcert %>
 Role:                 <%= @my_role %>
 kernel:               <%= @kernel %>
 puppet:               <%= @clientversion %>
-        $hdata_fixed        <%= @hdata_fixed %>
-        $hdata_string_empty <%= @hdata_string_empty %>
-first:  hdata::test_first:  <%= @hdata_string %>
-all:    hdata::test_combo:  <%= @hdata_combo %>
+        $infofile_fixed        <%= @infofile_fixed %>
+        $infofile_string_empty <%= @infofile_string_empty %>
+first:  infofile::test_first:  <%= @infofile_string %>
+all:    infofile::test_combo:  <%= @infofile_combo %>
 
-env:                        <%= @hdata_env %>
+env:                        <%= @infofile_env %>
 
 # ------------------------ eof ------------------------
 <%# foobar %>

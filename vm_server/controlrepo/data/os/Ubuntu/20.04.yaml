@@ -1,6 +1,6 @@
 ---
-profile::hdata::test_first: 'using os/Ubuntu/22.04.yaml'
-profile::hdata::test_combo: '22.04.yaml'
+profile::infofile::test_first: 'using os/Ubuntu/22.04.yaml'
+profile::infofile::test_combo: '22.04.yaml'
 profile::base::linux::packages::add:
   - 'vim'
   - 'emacs'

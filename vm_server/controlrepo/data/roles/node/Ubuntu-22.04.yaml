@@ -1,5 +1,3 @@
 ---
-profile::hdata::test_combo: 'Ubuntu-22.04.yaml'
-profile::hdata::test_first: 'using roles/node/Ubuntu-22.04.yaml'
-profile::base::linux::auth::sudoers:
-  - foobar: "%foobar ALL=(ALL) ALL"
+profile::infofile::test_combo: 'Ubuntu-22.04.yaml'
+profile::infofile::test_first: 'using roles/node/Ubuntu-22.04.yaml'

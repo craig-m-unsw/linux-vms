@@ -1,2 +1,6 @@
 ---
-profile::hdata::test_combo: 'Ubuntu-20.04.yaml'
+profile::infofile::test_combo: 'Ubuntu-20.04.yaml'
+profile::infofile::enabled: false
+profile::base::linux::auth::sudo_configs:
+  'wheelgroup':
+      'content': '%wheel ALL=(ALL) ALL'

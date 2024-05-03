@@ -1,2 +1,2 @@
 ---
-profile::hdata::test_combo: 'nodes/windows11.yaml'
+profile::infofile::test_combo: 'nodes/windows11.yaml'

@@ -1,18 +1,27 @@
 ---
-profile::hdata::test_first: 'using os/Linux.yaml'
-profile::hdata::test_combo: 'os/Linux.yaml'
+#
+profile::infofile::test_first: 'using os/Linux.yaml'
+profile::infofile::test_combo: 'os/Linux.yaml'
+#
+# array of packages to add to all Linux machines under puppet
 profile::base::linux::packages::add:
   - 'vim'
   - 'tmux'
   - 'yara'
+#
+# monitor these files for changes
 profile::base::linux::filemon:
   - '/etc/passwd'
   - '/etc/group'
   - '/etc/shadow'
   - '/etc/gshadow'
+#
 # remove non-puppet files from /etc/sudoers.d/
 profile::base::linux::auth::purge_unmanaged_sudo: true
-# put this information into /etc/sudoers.d/<file>
-profile::base::linux::auth::sudoers:
-  - wheelgroup: "%wheel ALL=(ALL) ALL"
-  - vagrant: "# data/os/linux\nDefaults:vagrant !requiretty\n%vagrant ALL=(ALL) NOPASSWD: ALL"
+#
+# hash of sudo info to put in /etc/sudoers.d/<title>
+profile::base::linux::auth::sudo_configs:
+  'wheelgroup':
+      'content': '%wheel ALL=(ALL) ALL'
+  'vagrant':
+      'content': "# data/os/linux\nDefaults:vagrant !requiretty\n%vagrant ALL=(ALL) NOPASSWD: ALL"

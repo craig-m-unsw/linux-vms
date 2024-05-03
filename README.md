@@ -43,7 +43,7 @@ Use [VSCode remote](https://code.visualstudio.com/docs/remote/remote-overview) t
 
 #### tune
 
-Run
+Run:
 
 ```shell
 sudo su

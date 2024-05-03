@@ -1,6 +1,7 @@
 ---
-profile::hdata::test_first: 'using nodes/puppet.mylocal.yaml'
-profile::hdata::test_combo: 'puppet.mylocal.yaml'
+profile::infofile::test_first: 'using nodes/puppet.mylocal.yaml'
+profile::infofile::test_combo: 'puppet.mylocal.yaml'
+#
 profile::base::linux::packages::add:
   - 'vim'
   - 'tmux'
@@ -8,11 +9,14 @@ profile::base::linux::packages::add:
   - 'nmap'
   - 'ncdu'
   - 'mkpasswd'
+#
 # put this information into /etc/sudoers.d/<file>
-profile::base::linux::auth::sudoers:
-  - wheelgroup: "%wheel ALL=(ALL) ALL"
-  - vagrant: "# data/nodes/puppet.mylocal.yaml\nDefaults:vagrant !requiretty\n%vagrant ALL=(ALL) NOPASSWD: ALL"
-  - vagrants: "Defaults:vagrant !requiretty\nvagrants ALL=(ALL) NOPASSWD: ALL"
+profile::base::linux::auth::sudo_configs:
+  'wheelgroup':
+      'content': '%wheel ALL=(ALL) ALL'
+  'vagrants':
+      'content': "# data/os/linux\nDefaults:vagrants !requiretty\n%vagrants ALL=(ALL) NOPASSWD: ALL"
+#
 # tuning data
 puppet_enterprise::profile::database::shared_buffers: 1024MB
 puppet_enterprise::puppetdb::command_processing_threads: 1

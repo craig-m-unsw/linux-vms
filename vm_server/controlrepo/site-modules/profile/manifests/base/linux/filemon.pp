@@ -6,7 +6,7 @@
 #
 class profile::base::linux::filemon (
   Array $linux_filemon_default = ['/etc/passwd', '/etc/group', '/etc/shadow', '/etc/gshadow',],
-  Array $linux_filemon = lookup('profile::base::linux::filemon', Array, unique, $linux_filemon_default),
+  Array $linux_filemon         = lookup('profile::base::linux::filemon', Array, unique, $linux_filemon_default),
 ) {
 
   file {

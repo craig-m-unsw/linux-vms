@@ -1,4 +1,4 @@
 ---
 # MacOS
-profile::hdata::test_first: 'using os/Darwin.yaml'
-profile::hdata::test_combo: 'os/Darwin.yaml'
+profile::infofile::test_first: 'using os/Darwin.yaml'
+profile::infofile::test_combo: 'os/Darwin.yaml'
