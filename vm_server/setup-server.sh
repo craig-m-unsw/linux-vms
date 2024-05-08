@@ -137,7 +137,7 @@ fi
 # configure Gitlab (accounts and projects etc)
 if [ ! -f /opt/boxlab/config/gitlab.txt ]; then
     cust_log "do gitlab conf"
-    pip3.11 install python-gitlab==4.1.1 || { echo 'error pip install gitlab'; exit 1; }
+    pip3.11 install python-gitlab==4.4.0 || { echo 'error pip install gitlab'; exit 1; }
     cd "$MYSCRIPTPATH" || exit 1
     python3.11 setup-gitlab.py --url http://127.0.0.1:9980 --token "$(cat /opt/boxlab/config/gitlab_token.txt)" || { echo "setup-gl.py error"; exit 1; }
     touch /opt/boxlab/config/gitlab.txt
