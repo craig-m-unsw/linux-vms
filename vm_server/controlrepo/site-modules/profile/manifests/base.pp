@@ -15,6 +15,8 @@ class profile::base {
     include profile::base::linux::packages_os
     include profile::base::linux::hardening::cron
     include profile::base::linux::hardening::netproto
+    # custom modules
+    include cust01_mod::init
     # distro family specifics
     case $facts['os']['name'] {
       'RedHat', 'CentOS', 'Rocky': {
